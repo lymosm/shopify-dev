@@ -33,7 +33,9 @@ app.get("/", async(_req, res) => {
   let session = _req.query.session;
   let client_id = "81e84554845475320e0f5b917eedf851";
   let scopes = "write_products,read_shipping";
-  let redirect = "http://localhost:3000/install/callback";
+  // let redirect = "http://localhost:3000/install/callback";
+  let redirect = "https://www.xtoool.com/app/install/callback";
+
   let access_mode = "offline";
   let state = "338dsjdkjdyuds";
   // 
@@ -41,7 +43,7 @@ app.get("/", async(_req, res) => {
   if(session == "" || session == null){
     res.redirect(url);
   }else{
-    res.status(200).send({"ssss": "222"});
+    res.status(200).send("hello world!peng");
   }
   
 });

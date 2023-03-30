@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "rrr",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
@@ -11,7 +12,8 @@
     "eee"
   ],
   "dependencies": {
-      "express": "^4.18.1"
+    "@shopify/shopify-api": "^6.2.0",
+    "express": "^4.18.1"
   },
   "author": "eee",
   "license": "ISC"

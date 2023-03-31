@@ -32,7 +32,7 @@ app.get("/", async(_req, res) => {
   let hamc = _req.query.hmac;
   let session = _req.query.session;
   let client_id = "81e84554845475320e0f5b917eedf851";
-  let scopes = "write_products,read_shipping";
+  let scopes = "read_products";
   // let redirect = "http://localhost:3000/install/callback";
   let redirect = "https://www.xtoool.com/app/install/callback";
 

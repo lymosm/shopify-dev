@@ -1,5 +1,5 @@
 # Environment Configuration
-.env
+# .env
 .shopify-cli.yml
 
 # Dependency directory

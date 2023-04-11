@@ -6,9 +6,11 @@ import {
   Image,
   Stack,
   Link,
+  EmptyState,
   Heading,
 } from "@shopify/polaris";
-import { TitleBar } from "@shopify/app-bridge-react";
+// import { TitleBar } from "@shopify/app-bridge-react";
+import { useNavigate, TitleBar, Loading } from "@shopify/app-bridge-react";
 
 import { trophyImage } from "../assets";
 

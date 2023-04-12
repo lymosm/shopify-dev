@@ -1,21 +1,18 @@
-import { Card, EmptyState, Page } from "@shopify/polaris";
-import { notFoundImage } from "../assets";
+import { Page } from "@shopify/polaris";
+import { TitleBar } from "@shopify/app-bridge-react";
+import { MyForm } from "../components";
 
-export default function NotFound() {
+export default function ManageCode() {
+  const breadcrumbs = [{ content: "blocks", url: "/" }];
+
   return (
     <Page>
-      <Card>
-        <Card.Section>
-          <EmptyState
-            heading="There is no page at this address"
-            image={notFoundImage}
-          >
-            <p>
-              Check tshudududududduu
-            </p>
-          </EmptyState>
-        </Card.Section>
-      </Card>
+      <TitleBar
+        title="Create new block"
+        breadcrumbs={breadcrumbs}
+        primaryAction={null}
+      />
+        <MyForm />
     </Page>
   );
 }

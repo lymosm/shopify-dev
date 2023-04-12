@@ -14,12 +14,46 @@ import { useNavigate, TitleBar, Loading } from "@shopify/app-bridge-react";
 
 import { trophyImage } from "../assets";
 
-import { ProductsCard } from "../components";
+import { ProductsCard, MyList} from "../components";
 
 
 export default function HomePage() {
 
   const navigate = useNavigate();
+  const list1 = [
+    {
+      createdAt: "2022-06-13",
+      destination: "checkout",
+      title: "My first QR code",
+      id: 1,
+      discountCode: "SUMMERDISCOUNT",
+      product: {
+        title: "Faded t-shirt",
+      }
+    },
+    {
+      createdAt: "2022-06-13",
+      destination: "product",
+      title: "My second QR code",
+      id: 2,
+      discountCode: "WINTERDISCOUNT",
+      product: {
+        title: "Cozy parka",
+      }
+    },
+    {
+      createdAt: "2022-06-13",
+      destination: "product",
+      title: "QR code for deleted product",
+      id: 3,
+      product: {
+        title: "Deleted product",
+      }
+    },
+  ];
+
+  
+  const myListHtml = (<MyList QRCodes={list1} loading={false} />)
 
   const btn_block = (
     <Card sectioned>
@@ -104,8 +138,11 @@ export default function HomePage() {
         <Layout.Section>
           <ProductsCard />
           {btn_block}
+          
         </Layout.Section>
+        {myListHtml}
       </Layout>
+      
     </Page>
   );
 }

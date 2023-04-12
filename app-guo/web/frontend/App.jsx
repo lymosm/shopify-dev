@@ -24,6 +24,12 @@ export default function App() {
                   label: "Page name",
                   destination: "/pagename",
                 },
+                /*
+                {
+                  label: "Add Block",
+                  destination: "/add_block"
+                }
+                */
               ]}
             />
             <Routes pages={pages} />

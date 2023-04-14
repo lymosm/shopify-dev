@@ -15,7 +15,7 @@ import {
   getShopUrlFromSession,
   parseQrCodeBody,
   formatQrCodeResponse,
-} from "../helpers/qr-codes.js";
+} from "../helpers/dbHelp.js";
 
 const DISCOUNTS_QUERY = `
   query discounts($first: Int!) {

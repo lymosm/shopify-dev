@@ -6,7 +6,7 @@ import sqlite3 from "sqlite3";
 import path from "path";
 import shopify from "./shopify.js";
 
-const DEFAULT_DB_FILE = path.join(process.cwd(), "qr_codes_db.sqlite");
+const DEFAULT_DB_FILE = path.join(process.cwd(), "myDb.sqlite");
 const DEFAULT_PURCHASE_QUANTITY = 1;
 
 export const MyOwnDb = {

@@ -2,9 +2,12 @@ import { BillingInterval, LATEST_API_VERSION } from "@shopify/shopify-api";
 import { shopifyApp } from "@shopify/shopify-app-express";
 import { SQLiteSessionStorage } from "@shopify/shopify-app-session-storage-sqlite";
 import { restResources } from "@shopify/shopify-api/rest/admin/2023-01";
-import { MyOwnDb } from "./myDb";
+import { MyOwnDb } from "./myDb.js";
+import sqlite3 from "sqlite3";
+import { join } from "path";
 
-const database = new sqllite3.Database(join(process.cwd(), "mydb.sqlite"));
+const database = new sqlite3.Database(join(process.cwd(), "mydb.sqlite"));
+
 
 // Initialize SQLite DB
 MyOwnDb.db = database;
@@ -27,4 +30,3 @@ const shopify = shopifyApp({
 });
 
 export default shopify;
-

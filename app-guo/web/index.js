@@ -8,7 +8,7 @@ console.warn(process.cwd());
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
-import ApplyMyApiEndpoints from "./middleware/myApi";
+import ApplyMyApiEndpoints from "./middleware/myApi.js";
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 

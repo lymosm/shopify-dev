@@ -20,62 +20,10 @@ import { ProductsCard, MyList} from "../components";
 export default function HomePage() {
 
   const navigate = useNavigate();
-  const list1 = [
-    {
-      createdAt: "2022-06-13",
-      destination: "checkout",
-      title: "My first QR code",
-      id: 1,
-      discountCode: "SUMMERDISCOUNT",
-      product: {
-        title: "Faded t-shirt",
-      }
-    },
-    {
-      createdAt: "2022-06-13",
-      destination: "product",
-      title: "My second QR code",
-      id: 2,
-      discountCode: "WINTERDISCOUNT",
-      product: {
-        title: "Cozy parka",
-      }
-    },
-    {
-      createdAt: "2022-06-13",
-      destination: "product",
-      title: "QR code for deleted product",
-      id: 3,
-      product: {
-        title: "Deleted product",
-      }
-    },
-  ];
-
-  
-  const myListHtml = (<MyList QRCodes={list1} loading={false} />)
-
-  const btn_block = (
-    <Card sectioned>
-      <EmptyState
-        heading="Create a block for your blog"
-        /* This button will take the user to a Create a QR code page */
-        action={{
-          content: "Add Block",
-          onAction: () => navigate("/add_block"),
-        }}
-        image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
-      >
-        <p>
-          Allow customers to add block for blog page
-        </p>
-      </EmptyState>
-    </Card>
-  );
 
   return (
     <Page narrowWidth>
-      <TitleBar title="App name" primaryAction={null} />
+      <TitleBar title="Blog product show" primaryAction={null} />
       <Layout>
         <Layout.Section>
           <Card sectioned>
@@ -87,39 +35,15 @@ export default function HomePage() {
             >
               <Stack.Item fill>
                 <TextContainer spacing="loose">
-                  <Heading>Nice work on building a Shopify app 🎉</Heading>
+                  <Heading>Blog product show readme🎉</Heading>
                   <p>
-                    Your app is ready to explore! It contains everything you
-                    need to get started including the{" "}
-                    <Link url="https://polaris.shopify.com/" external>
-                      Polaris design system
-                    </Link>
-                    ,{" "}
-                    <Link url="https://shopify.dev/api/admin-graphql" external>
-                      Shopify Admin API
-                    </Link>
-                    , and{" "}
-                    <Link
-                      url="https://shopify.dev/apps/tools/app-bridge"
-                      external
-                    >
-                      App Bridge
-                    </Link>{" "}
-                    UI library and components.
+                    1. Go to theme setting blogs template
                   </p>
                   <p>
-                    Ready to go? Start populating your app with some sample
-                    products to view and test in your store.{" "}
+                    2. select your product. And save the blog template.{" "}
                   </p>
                   <p>
-                    Learn more about building out your app in{" "}
-                    <Link
-                      url="https://shopify.dev/apps/getting-started/add-functionality"
-                      external
-                    >
-                      this Shopify tutorial
-                    </Link>{" "}
-                    📚{" "}
+                    3. create new blog for a blog template.{" "}
                   </p>
                 </TextContainer>
               </Stack.Item>
@@ -127,7 +51,7 @@ export default function HomePage() {
                 <div style={{ padding: "0 20px" }}>
                   <Image
                     source={trophyImage}
-                    alt="Nice work on building a Shopify app"
+                    alt="Blog product show"
                     width={120}
                   />
                 </div>
@@ -135,12 +59,7 @@ export default function HomePage() {
             </Stack>
           </Card>
         </Layout.Section>
-        <Layout.Section>
-          <ProductsCard />
-          {btn_block}
-          
-        </Layout.Section>
-        {myListHtml}
+       
       </Layout>
       
     </Page>

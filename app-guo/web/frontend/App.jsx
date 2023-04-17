@@ -20,10 +20,12 @@ export default function App() {
           <QueryProvider>
             <NavigationMenu
               navigationLinks={[
+                /*
                 {
                   label: "Page name",
                   destination: "/pagename",
                 },
+                */
                 /*
                 {
                   label: "Add Block",

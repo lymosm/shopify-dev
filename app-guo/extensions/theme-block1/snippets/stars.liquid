@@ -1,6 +1,6 @@
 <div class="xt-product-box">
   <div class="xt-product-img">
-    {{ block.settings.product | image_url | img_tag }}
+    {{ block.settings.product | image_url | image_tag }}
     {%- for k in block.settings.product.images -%}{%- endfor -%}
   </div>
   <div class="xt-product-title">{{ block.settings.product.title }}</div>

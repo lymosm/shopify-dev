@@ -61,6 +61,11 @@ app.get("/api/products/create", async (_req, res) => {
   res.status(status).send({ success: status === 200, error });
 });
 
+app.get("/iframe", async (req, res) => {
+  let data = {"status": "success"};
+  res.status(200).send(data);
+});
+
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 

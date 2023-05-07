@@ -3,12 +3,13 @@ import { join } from "path";
 import { readFileSync } from "fs";
 import express from "express";
 import serveStatic from "serve-static";
-console.warn("9999");
 console.warn(process.cwd());
-import shopify from "./shopify.js";
+// import shopify from "./shopify.js";
+import shopify from "./snippetShopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
-import ApplyMyApiEndpoints from "./middleware/myApi.js";
+// import ApplyMyApiEndpoints from "./middleware/myApi.js";
+import ApplySnippetApiEndpoints from "./middleware/snippetApi.js";
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
@@ -19,7 +20,7 @@ const STATIC_PATH =
 
 const app = express();
 
-ApplyMyApiEndpoints(app);
+
 
 // Set up Shopify authentication and webhook handling
 app.get(shopify.config.auth.path, shopify.auth.begin());
@@ -40,27 +41,6 @@ app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 
-app.get("/api/products/count", async (_req, res) => {
-  const countData = await shopify.api.rest.Product.count({
-    session: res.locals.shopify.session,
-  });
-  res.status(200).send(countData);
-});
-
-app.get("/api/products/create", async (_req, res) => {
-  let status = 200;
-  let error = null;
-
-  try {
-    await productCreator(res.locals.shopify.session);
-  } catch (e) {
-    console.log(`Failed to process products/create: ${e.message}`);
-    status = 500;
-    error = e.message;
-  }
-  res.status(status).send({ success: status === 200, error });
-});
-
 app.get("/iframe", async (req, res) => {
   let data = {"status": "success"};
   res.status(200).send(data);
@@ -68,6 +48,9 @@ app.get("/iframe", async (req, res) => {
 
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
+
+// ApplyMyApiEndpoints(app);
+ApplySnippetApiEndpoints(app);
 
 app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
   return res

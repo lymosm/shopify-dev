@@ -69,7 +69,7 @@ function SmallScreenCard({
   );
 }
 
-export function MyList({ QRCodes, loading }) {
+export function SnippetList({ QRCodes, loading }) {
   const navigate = useNavigate();
 
   /* Check if screen is small */
@@ -119,7 +119,7 @@ export function MyList({ QRCodes, loading }) {
               </TextStyle>
             </Stack>
           </IndexTable.Cell>
-          <IndexTable.Cell>{discountCode}</IndexTable.Cell>
+          
           <IndexTable.Cell>
             {dayjs(createdAt).format("MMMM D, YYYY")}
           </IndexTable.Cell>
@@ -142,7 +142,7 @@ export function MyList({ QRCodes, loading }) {
             { title: "ID"},
             { title: "Title" },
             { title: "Snippet" },
-            { title: "Discount" },
+
             { title: "Date created" },
             { title: "Action" },
           ]}

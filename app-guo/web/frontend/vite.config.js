@@ -57,7 +57,10 @@ export default defineConfig({
     hmr: hmrConfig,
     proxy: {
       "^/(\\?.*)?$": proxyOptions,
-      "^/api(/|(\\?.*)?$)": proxyOptions,
+    "^/api(/|(\\?.*)?$)": proxyOptions,
+    "^/qrcodes/[0-9]+/image(\\?.*)?$": proxyOptions,
+    "^/qrcodes/[0-9]+/scan(\\?.*)?$": proxyOptions
+
     },
   },
 });

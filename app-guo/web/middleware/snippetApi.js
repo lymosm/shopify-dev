@@ -8,14 +8,14 @@
 
 import express from "express";
 
-import shopify from "../shopify.js";
-import { MyOwnDb } from "../myDb.js";
+import shopify from "../snippetShopify.js";
+import { SnippetDb } from "../snippetDb.js";
 import {
   getQrCodeOr404,
   getShopUrlFromSession,
   parseQrCodeBody,
   formatQrCodeResponse,
-} from "../helpers/dbHelp.js";
+} from "../helpers/snippetDbHelp.js";
 
 const DISCOUNTS_QUERY = `
   query discounts($first: Int!) {
@@ -58,54 +58,40 @@ const DISCOUNTS_QUERY = `
   }
 `;
 
-export default function ApplyMyApiEndpoints(app) {
-  console.log("ApplyMyApiEndpoints");
+export default function ApplySnippetApiEndpoints(app) {
+  console.log("ApplySnippetApiEndpoints");
   app.use(express.json());
 
-  app.get("/api/discounts", async (req, res) => {
-    const client = new shopify.api.clients.Graphql({
-      session: res.locals.shopify.session,
-    });
-
-    /* Fetch all available discounts to list in the QR code form */
-    const discounts = await client.query({
-      data: {
-        query: DISCOUNTS_QUERY,
-        variables: {
-          first: 25,
-        },
-      },
-    });
-
-    res.send(discounts.body.data);
-  });
-
   app.post("/api/qrcodes", async (req, res) => {
-    console.log("api2222");
     try {
-      const id = await MyOwnDb.create({
+      console.log("submiting in...");
+      const id = await SnippetDb.create({
         ...(await parseQrCodeBody(req)),
 
         /* Get the shop from the authorization header to prevent users from spoofing the data */
         shopDomain: await getShopUrlFromSession(req, res),
       });
+      console.log("submiting in 2222...");
       const response = await formatQrCodeResponse(req, res, [
-        await MyOwnDb.read(id),
+        await SnippetDb.read(id),
       ]);
+      console.log("submiting in 3333...");
       res.status(201).send(response[0]);
     } catch (error) {
+      console.log("submit error ");
       res.status(500).send(error.message);
     }
   });
 
   app.patch("/api/qrcodes/:id", async (req, res) => {
+    console.log("/api/qrcodes/:id");
     const qrcode = await getQrCodeOr404(req, res);
 
     if (qrcode) {
       try {
-        await MyOwnDb.update(req.params.id, await parseQrCodeBody(req));
+        await SnippetDb.update(req.params.id, await parseQrCodeBody(req));
         const response = await formatQrCodeResponse(req, res, [
-          await MyOwnDb.read(req.params.id),
+          await SnippetDb.read(req.params.id),
         ]);
         res.status(200).send(response[0]);
       } catch (error) {
@@ -115,8 +101,9 @@ export default function ApplyMyApiEndpoints(app) {
   });
 
   app.get("/api/qrcodes", async (req, res) => {
+    console.log("get /api/qrcodes/");
     try {
-      const rawCodeData = await MyOwnDb.list(
+      const rawCodeData = await SnippetDb.list(
         await getShopUrlFromSession(req, res)
       );
 
@@ -130,6 +117,8 @@ export default function ApplyMyApiEndpoints(app) {
 
   app.get("/api/qrcodes/:id", async (req, res) => {
     const qrcode = await getQrCodeOr404(req, res);
+console.log("/api/qrcodes/:id ");
+// console.log(qrcode);
 
     if (qrcode) {
       const formattedQrCode = await formatQrCodeResponse(req, res, [qrcode]);
@@ -141,7 +130,7 @@ export default function ApplyMyApiEndpoints(app) {
     const qrcode = await getQrCodeOr404(req, res);
 
     if (qrcode) {
-      await MyOwnDb.delete(req.params.id);
+      await SnippetDb.delete(req.params.id);
       res.status(200).send();
     }
   });

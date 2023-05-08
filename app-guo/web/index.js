@@ -10,6 +10,7 @@ import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 // import ApplyMyApiEndpoints from "./middleware/myApi.js";
 import ApplySnippetApiEndpoints from "./middleware/snippetApi.js";
+import { SnippetCore } from "./middleware/snippetCore.js";
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
@@ -41,9 +42,11 @@ app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 
-app.get("/iframe", async (req, res) => {
-  let data = {"status": "success"};
-  res.status(200).send(data);
+// <iframe src="hosts/snippet/xxxx"></iframe>
+app.get("/snippet/*", async (req, res) => {
+  const snippet = SnippetCore();
+  const html = snippet.dealSnippet(req);
+  res.status(200).send(html);
 });
 
 app.use(shopify.cspHeaders());

@@ -21,6 +21,7 @@ export const SnippetDb = {
     variantId,
     handle,
     discountId,
+    snippet,
     code,
     destination,
   }) {
@@ -28,8 +29,8 @@ export const SnippetDb = {
 
     const query = `
       INSERT INTO ${this.qrCodesTableName}
-      (shopDomain, title, productId, variantId, handle, discountId, code, destination, scans)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)
+      (shopDomain, title, productId, variantId, handle, discountId, snippet, code, destination, scans)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
       RETURNING id;
     `;
 
@@ -98,6 +99,16 @@ export const SnippetDb = {
     const results = await this.__query(query, [shopDomain]);
 
     return results.map((qrcode) => this.__addImageUrl(qrcode));
+  },
+
+  getByCode: async function (code){
+    await this.ready;
+    const query = `select * from ${this.qrCodesTableName} where code = ?;`
+    const results = await this.__query(query, [code]);
+    if(! Array.isArray(results) || results?.length !== 1){
+      return undefined;
+    }
+    return results[0];
   },
 
   read: async function (id) {
@@ -188,11 +199,13 @@ export const SnippetDb = {
           productId VARCHAR(255) NOT NULL,
           variantId VARCHAR(255) NOT NULL,
           handle VARCHAR(255) NOT NULL,
-          discountId VARCHAR(255) NOT NULL,
+          discountId VARCHAR(255) NOT NULL default "",
+          snippet VARCHAR(500) NOT NULL,
           code VARCHAR(500) NOT NULL,
-          destination VARCHAR(255) NOT NULL,
+          destination VARCHAR(255) NOT NULL default "",
           scans INTEGER,
-          createdAt DATETIME NOT NULL DEFAULT (datetime(CURRENT_TIMESTAMP, 'localtime'))
+          createdAt DATETIME NOT NULL DEFAULT (datetime(CURRENT_TIMESTAMP, 'localtime')),
+          unique(code)
         )
       `;
 

@@ -10,7 +10,7 @@ import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 // import ApplyMyApiEndpoints from "./middleware/myApi.js";
 import ApplySnippetApiEndpoints from "./middleware/snippetApi.js";
-import { SnippetCore } from "./middleware/snippetCore.js";
+// import { SnippetCore } from "./middleware/snippetCore.js";
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
@@ -39,15 +39,10 @@ app.post(
 // also add a proxy rule for them in web/frontend/vite.config.js
 
 app.use("/api/*", shopify.validateAuthenticatedSession());
+// app.use("/snippet/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 
-// <iframe src="hosts/snippet/xxxx"></iframe>
-app.get("/snippet/*", async (req, res) => {
-  const snippet = SnippetCore();
-  const html = snippet.dealSnippet(req);
-  res.status(200).send(html);
-});
 
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
@@ -56,6 +51,7 @@ app.use(serveStatic(STATIC_PATH, { index: false }));
 ApplySnippetApiEndpoints(app);
 
 app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
+  console.log("5555");
   return res
     .status(200)
     .set("Content-Type", "text/html")

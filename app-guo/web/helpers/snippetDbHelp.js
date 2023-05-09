@@ -1,6 +1,8 @@
 import shopify from "../snippetShopify.js";
 import { SnippetDb } from "../snippetDb.js";
 
+var guid_str = "";
+
 /*
   The app's database stores the productId and the discountId.
   This query is used to get the fields the frontend needs for those IDs.
@@ -51,6 +53,20 @@ export async function getQrCodeOr404(req, res, checkDomain = true) {
   return undefined;
 }
 
+export function guid() { 
+  guid_str = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) { 
+      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8); 
+      return v.toString(16); 
+  }); 
+}
+
+export function genSnippet(){
+  if(guid_str == ""){
+    guid();
+  }
+  return '<iframe class="xt-snippet-frame" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"><iframe>';
+}
+
 export async function getShopUrlFromSession(req, res) {
   return `https://${res.locals.shopify.session.shop}`;
 }
@@ -66,14 +82,16 @@ discountCode: string
 destination: string
 */
 export async function parseQrCodeBody(req, res) {
+  guid();
   return {
     title: req.body.title,
     productId: req.body.productId,
     variantId: req.body.variantId,
     handle: req.body.handle,
     discountId: req.body.discountId,
-    code: req.body.discountCode,
-    destination: req.body.destination,
+    snippet: genSnippet(),
+    code: guid_str,
+    destination: "",
   };
 }
 

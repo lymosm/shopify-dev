@@ -8,8 +8,9 @@
 
 import express from "express";
 
-import shopify from "../snippetShopify.js";
+import shopify from "../snippetShopify.js"; 
 import { SnippetDb } from "../snippetDb.js";
+import { SnippetCore } from "./snippetCore.js";
 import {
   getQrCodeOr404,
   getShopUrlFromSession,
@@ -61,6 +62,15 @@ const DISCOUNTS_QUERY = `
 export default function ApplySnippetApiEndpoints(app) {
   console.log("ApplySnippetApiEndpoints");
   app.use(express.json());
+
+  // <iframe src="hosts/snippet/xxxx"></iframe>
+app.get("/snippet/*", async (req, res) => {
+    console.log("44444");
+  const snippet = SnippetCore();
+  const html = snippet.dealSnippet(req);
+  res.status(200).send(html);
+});
+
 
   app.post("/api/qrcodes", async (req, res) => {
     try {

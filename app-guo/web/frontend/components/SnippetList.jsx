@@ -81,12 +81,12 @@ export function SnippetList({ QRCodes, loading }) {
   ));
 
   const resourceName = {
-    singular: "QR code",
-    plural: "QR codes",
+    singular: "Snippet",
+    plural: "Snippet",
   };
 
   const rowMarkup = QRCodes.map(
-    ({ id, title, product, discountCode, scans, createdAt }, index) => {
+    ({ id, title, product, snippet, scans, createdAt }, index) => {
       const deletedProduct = product.title.includes("Deleted product");
 
       /* The form layout, created using Polaris components. Includes the QR code data set above. */
@@ -96,28 +96,23 @@ export function SnippetList({ QRCodes, loading }) {
           key={id}
           position={index}
           onClick={() => {
-            navigate(`/qrcodes/${id}`);
+            navigate(`/mypages/${id}`);
           }}
         >
           <IndexTable.Cell>
-            <UnstyledLink data-primary-link url={`/qrcodes/${id}`}>
+            <UnstyledLink data-primary-link url={`/mypages/${id}`}>
               {truncate(title, 25)}
             </UnstyledLink>
           </IndexTable.Cell>
           <IndexTable.Cell>
-            <UnstyledLink data-primary-link url={`/qrcodes/${id}`}>
+            <UnstyledLink data-primary-link url={`/mypages/${id}`}>
               {truncate(title, 25)}
             </UnstyledLink>
           </IndexTable.Cell>
           <IndexTable.Cell>
-            <Stack>
-              {deletedProduct && (
-                <Icon source={DiamondAlertMajor} color="critical" />
-              )}
-              <TextStyle variation={deletedProduct ? "negative" : null}>
-                {truncate(product?.title, 25)}
-              </TextStyle>
-            </Stack>
+            
+              {snippet}
+            
           </IndexTable.Cell>
           
           <IndexTable.Cell>

@@ -41,6 +41,7 @@ export const SnippetDb = {
       variantId,
       handle,
       discountId,
+      snippet,
       code,
       destination,
     ]);
@@ -56,7 +57,6 @@ export const SnippetDb = {
       variantId,
       handle,
       discountId,
-      code,
       destination,
     }
   ) {
@@ -70,7 +70,6 @@ export const SnippetDb = {
         variantId = ?,
         handle = ?,
         discountId = ?,
-        code = ?,
         destination = ?
       WHERE
         id = ?;
@@ -82,7 +81,6 @@ export const SnippetDb = {
       variantId,
       handle,
       discountId,
-      code,
       destination,
       id,
     ]);
@@ -185,7 +183,6 @@ export const SnippetDb = {
     this.db = this.db ?? new sqlite3.Database(DEFAULT_DB_FILE);
 
     const hasQrCodesTable = await this.__hasQrCodesTable();
-
     if (hasQrCodesTable) {
       this.ready = Promise.resolve();
 

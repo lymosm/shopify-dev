@@ -64,7 +64,7 @@ export function SnippetCore() {
       const data = SnippetDb.getByCode(code);
       const product_id = data.productId;
 
-      const client = new shopify.clients.Graphql(res.locals.shopify.session);
+      const client = new shopify.api.clients.Graphql(res.locals.shopify.session);
       const product_data = await client.query({
         data: `query {
           product(id: $product_id) {

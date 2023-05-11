@@ -80,8 +80,6 @@ export function SnippetCore() {
             title
             description
             onlineStoreUrl
-            images
-            url
           }
         }`,
       });

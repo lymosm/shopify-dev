@@ -83,7 +83,8 @@ export function SnippetCore() {
           }
         }`,
       });
-      console.log(product_data);
+      const pp = product_data.body.data.product;
+      console.log(pp);
       var html = "<!DOCTYPE html><html><head></head><body>";
 
       html += "</body></html>"

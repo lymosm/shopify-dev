@@ -102,8 +102,6 @@ export const SnippetDb = {
     await this.ready;
     const query = `select * from ${this.qrCodesTableName} where code = ?;`
     const results = await this.__query(query, [code]);
-    console.log("results");
-    console.log(results);
     if(! Array.isArray(results) || results?.length !== 1){
       return undefined;
     }

@@ -63,15 +63,17 @@ export function SnippetCore() {
         return "";
       }
       const data = await SnippetDb.getByCode(code);
-      console.log(data);
       const product_id = data.productId;
       const session_id = data.session_id;
       console.log("session_id: " + session_id);
       const session = await SnippetDb.getSession(session_id);
-      console.log(session);
+      const session_obj = {
+        session: session
+      };
+      console.log(session_obj);
 
      // const client = new shopify.api.clients.Graphql(res.locals.shopify.session);
-      const client = new shopify.api.clients.Graphql(session);
+      const client = new shopify.api.clients.Graphql(session_obj);
       const product_data = await client.query({
         data: `query {
           product(id: $product_id) {

@@ -80,9 +80,9 @@ export function SnippetCore() {
             title
             description
             onlineStoreUrl
-            featuredImage
-            featuredMedia
-            metafield
+            featuredImage {
+              url
+            }
             onlineStoreUrl
           }
         }`,

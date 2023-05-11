@@ -104,7 +104,6 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       productId,
       variantId,
       handle,
-      discountId,
       discountCode,
       destination,
     },
@@ -128,7 +127,6 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       destination: useField(
         QRCode?.destination ? [QRCode.destination] : ["product"]
       ),
-      discountId: useField(QRCode?.discountId || NO_DISCOUNT_OPTION.value),
       discountCode: useField(QRCode?.discountCode || ""),
     },
     onSubmit,

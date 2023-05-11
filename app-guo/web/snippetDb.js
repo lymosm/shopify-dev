@@ -20,16 +20,15 @@ export const SnippetDb = {
     productId,
     variantId,
     handle,
-    discountId,
+    session_id,
     snippet,
     code,
     destination,
   }) {
     await this.ready;
-
     const query = `
       INSERT INTO ${this.qrCodesTableName}
-      (shopDomain, title, productId, variantId, handle, discountId, snippet, code, destination, scans)
+      (shopDomain, title, productId, variantId, handle, session_id, snippet, code, destination, scans)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
       RETURNING id;
     `;
@@ -40,7 +39,7 @@ export const SnippetDb = {
       productId,
       variantId,
       handle,
-      discountId,
+      session_id,
       snippet,
       code,
       destination,
@@ -56,7 +55,7 @@ export const SnippetDb = {
       productId,
       variantId,
       handle,
-      discountId,
+      session_id,
       destination,
     }
   ) {
@@ -69,7 +68,7 @@ export const SnippetDb = {
         productId = ?,
         variantId = ?,
         handle = ?,
-        discountId = ?,
+        session_id = ?,
         destination = ?
       WHERE
         id = ?;
@@ -80,7 +79,7 @@ export const SnippetDb = {
       productId,
       variantId,
       handle,
-      discountId,
+      session_id,
       destination,
       id,
     ]);
@@ -103,6 +102,16 @@ export const SnippetDb = {
     await this.ready;
     const query = `select * from ${this.qrCodesTableName} where code = ?;`
     const results = await this.__query(query, [code]);
+    if(! Array.isArray(results) || results?.length !== 1){
+      return undefined;
+    }
+    return results[0];
+  },
+
+  getSession: async function (id){
+    await this.ready;
+    const query = `select * from shopify_sessions where id = ?;`
+    const results = await this.__query(query, [id]);
     if(! Array.isArray(results) || results?.length !== 1){
       return undefined;
     }
@@ -196,7 +205,7 @@ export const SnippetDb = {
           productId VARCHAR(255) NOT NULL,
           variantId VARCHAR(255) NOT NULL,
           handle VARCHAR(255) NOT NULL,
-          discountId VARCHAR(255) NOT NULL default "",
+          session_id VARCHAR(255) NOT NULL default "",
           snippet VARCHAR(500) NOT NULL,
           code VARCHAR(500) NOT NULL,
           destination VARCHAR(255) NOT NULL default "",

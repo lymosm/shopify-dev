@@ -76,7 +76,7 @@ app.get("/snippet/*", async (req, res) => {
     try {
       console.log("submiting in...");
       const id = await SnippetDb.create({
-        ...(await parseQrCodeBody(req)),
+        ...(await parseQrCodeBody(req, res)),
 
         /* Get the shop from the authorization header to prevent users from spoofing the data */
         shopDomain: await getShopUrlFromSession(req, res),
@@ -99,7 +99,7 @@ app.get("/snippet/*", async (req, res) => {
 
     if (qrcode) {
       try {
-        await SnippetDb.update(req.params.id, await parseQrCodeBody(req));
+        await SnippetDb.update(req.params.id, await parseQrCodeBody(req, res));
         const response = await formatQrCodeResponse(req, res, [
           await SnippetDb.read(req.params.id),
         ]);

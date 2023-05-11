@@ -60,6 +60,11 @@ export function guid() {
   }); 
 }
 
+export function getSessionId(res){
+  console.log(res.locals.shopify.session);
+  return res.locals.shopify.session.id;
+}
+
 export function genSnippet(){
   if(guid_str == ""){
     guid();
@@ -88,7 +93,7 @@ export async function parseQrCodeBody(req, res) {
     productId: req.body.productId,
     variantId: req.body.variantId,
     handle: req.body.handle,
-    discountId: req.body.discountId,
+    session_id: getSessionId(res),
     snippet: genSnippet(),
     code: guid_str,
     destination: "",

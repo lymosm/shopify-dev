@@ -50,6 +50,7 @@ app.use(serveStatic(STATIC_PATH, { index: false }));
 // ApplyMyApiEndpoints(app);
 ApplySnippetApiEndpoints(app);
 
+
 app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
   console.log("5555");
   return res

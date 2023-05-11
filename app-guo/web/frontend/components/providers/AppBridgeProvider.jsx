@@ -47,7 +47,7 @@ export function AppBridgeProvider({ children }) {
       forceRedirect: true,
     };
   });
-
+  
   if (!process.env.SHOPIFY_API_KEY || !appBridgeConfig.host) {
     const bannerProps = !process.env.SHOPIFY_API_KEY
       ? {

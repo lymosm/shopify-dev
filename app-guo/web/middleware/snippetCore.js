@@ -56,13 +56,14 @@ const DISCOUNTS_QUERY = `
 export function SnippetCore() {
   const obj = {
     dealSnippet: async function(req, res){
-      console.log(req.url);
+      
       const code = req.url.match(/snippet\/(\S*)/)[1];
       console.log(code);
       if(! code || code == null){
         return "";
       }
       const data = SnippetDb.getByCode(code);
+      console.log(data);
       const product_id = data.productId;
       const session_id = data.session_id;
       console.log("session_id: " + session_id);

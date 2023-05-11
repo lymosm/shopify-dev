@@ -56,8 +56,9 @@ const DISCOUNTS_QUERY = `
 export function SnippetCore() {
   const obj = {
     dealSnippet: async function(req, res){
-      console.log(req);
-      const code = "hosts/snippet/code".match(/snippet\/(\S*)/)[1];
+      console.log(req.url);
+      const code = req.url.match(/snippet\/(\S*)/)[1];
+      console.log(code);
       if(! code || code == null){
         return "";
       }

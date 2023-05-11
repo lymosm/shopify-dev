@@ -80,6 +80,10 @@ export function SnippetCore() {
             title
             description
             onlineStoreUrl
+            featuredImage
+            featuredMedia
+            metafield
+            onlineStoreUrl
           }
         }`,
       });

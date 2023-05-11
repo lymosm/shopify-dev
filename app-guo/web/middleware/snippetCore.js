@@ -89,10 +89,23 @@ export function SnippetCore() {
         }`,
       });
       const pp = product_data.body.data.product;
+      var url = pp.onlineStoreUrl ?? pp.onlineStorePreviewUrl;
       console.log(pp);
       var html = "<!DOCTYPE html><html><head></head><body>";
-
-      html += "</body></html>"
+      html += `
+      <div class="xt-product-box">
+  <div class="xt-product-img">
+    ${pp.featuredImage.url}
+  </div>
+  <div class="xt-product-title">${pp.title}</div>
+  <div class="xt-product-action">
+    <a class="xt-btn" href="${url}">Shop now</a>
+  </div>
+</div>
+      
+      
+      `;
+      html += "</body></html>";
 
       return html;
 

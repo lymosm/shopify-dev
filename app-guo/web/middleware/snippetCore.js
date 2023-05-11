@@ -95,7 +95,7 @@ export function SnippetCore() {
       html += `
       <div class="xt-product-box">
   <div class="xt-product-img">
-    ${pp.featuredImage.url}
+    <img src="${pp.featuredImage.url}">
   </div>
   <div class="xt-product-title">${pp.title}</div>
   <div class="xt-product-action">
@@ -103,7 +103,33 @@ export function SnippetCore() {
   </div>
 </div>
       
-      
+      <style>
+      .xt-product-box{
+        width: 25%;
+        max-width: 400px;
+        min-width: 320px;
+        height: 400px;
+        border: 1px solid #ccc;
+    }
+    .xt-product-img img{
+        width: 100%;
+    }
+    .xt-product-action{
+        text-align: center;
+    }
+    .xt-product-title{
+        text-align: center;
+        color: #000;
+        font-weight: bold;
+    }
+    .xt-btn{
+        text-decoration: none;
+        color: #fff;
+        background-color: blue;
+        border-radius: 10px;
+        padding: 4px 10px;
+    }
+    </style>
       `;
       html += "</body></html>";
 

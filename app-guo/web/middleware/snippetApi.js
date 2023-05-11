@@ -67,7 +67,7 @@ export default function ApplySnippetApiEndpoints(app) {
 app.get("/snippet/*", async (req, res) => {
     console.log("44444");
   const snippet = SnippetCore();
-  const html = snippet.dealSnippet(req, res);
+  const html = await snippet.dealSnippet(req, res);
   res.status(200).send(html);
 });
 

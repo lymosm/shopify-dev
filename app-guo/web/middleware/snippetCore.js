@@ -80,6 +80,7 @@ export function SnippetCore() {
             title
             description
             onlineStoreUrl
+            onlineStorePreviewUrl
             featuredImage {
               url
             }

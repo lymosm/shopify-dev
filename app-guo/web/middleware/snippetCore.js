@@ -62,12 +62,12 @@ export function SnippetCore() {
       if(! code || code == null){
         return "";
       }
-      const data = SnippetDb.getByCode(code);
+      const data = await SnippetDb.getByCode(code);
       console.log(data);
       const product_id = data.productId;
       const session_id = data.session_id;
       console.log("session_id: " + session_id);
-      const session = SnippetDb.getSession(session_id);
+      const session = await SnippetDb.getSession(session_id);
       console.log(session);
 
      // const client = new shopify.api.clients.Graphql(res.locals.shopify.session);

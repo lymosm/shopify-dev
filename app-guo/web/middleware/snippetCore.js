@@ -76,7 +76,7 @@ export function SnippetCore() {
       const client = new shopify.api.clients.Graphql(session_obj);
       const product_data = await client.query({
         data: `query {
-          product(id: ${product_id}) {
+          product(id: "${product_id}") {
             title
             description
             onlineStoreUrl

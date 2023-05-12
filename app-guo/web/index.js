@@ -52,7 +52,6 @@ ApplySnippetApiEndpoints(app);
 
 
 app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
-  console.log("5555");
   return res
     .status(200)
     .set("Content-Type", "text/html")

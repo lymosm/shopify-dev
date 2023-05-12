@@ -81,7 +81,7 @@ app.get("/snippet/*", async (req, res) => {
     'Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since'
   );
   */
-  res.setHeader('Content-Security-Policy', "default-src 'self'; img-src *");
+  res.setHeader('Content-Security-Policy', "default-src 'self'; img-src *; style-src *; script-src *");
 
   const snippet = SnippetCore();
   const html = await snippet.dealSnippet(req, res);

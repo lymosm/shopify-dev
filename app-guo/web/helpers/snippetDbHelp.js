@@ -69,7 +69,7 @@ export function genSnippet(){
   if(guid_str == ""){
     guid();
   }
-  return '<iframe class="xt-snippet-frame" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"><iframe>';
+  return '<iframe class="xt-snippet-frame" height="260" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"><iframe>';
 }
 
 export async function getShopUrlFromSession(req, res) {

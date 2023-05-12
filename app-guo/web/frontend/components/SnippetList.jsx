@@ -3,6 +3,7 @@ import {
   Card,
   Icon,
   IndexTable,
+  Button,
   Stack,
   TextStyle,
   Thumbnail,
@@ -95,19 +96,14 @@ export function SnippetList({ QRCodes, loading }) {
           id={id}
           key={id}
           position={index}
-          onClick={() => {
-            navigate(`/mypages/${id}`);
-          }}
         >
           <IndexTable.Cell>
-            <UnstyledLink data-primary-link url={`/mypages/${id}`}>
+            
               {truncate(title, 25)}
-            </UnstyledLink>
           </IndexTable.Cell>
           <IndexTable.Cell>
-            <UnstyledLink data-primary-link url={`/mypages/${id}`}>
+  
               {truncate(title, 25)}
-            </UnstyledLink>
           </IndexTable.Cell>
           <IndexTable.Cell>
             
@@ -118,7 +114,9 @@ export function SnippetList({ QRCodes, loading }) {
           <IndexTable.Cell>
             {dayjs(createdAt).format("MMMM D, YYYY")}
           </IndexTable.Cell>
-          <IndexTable.Cell>{scans}</IndexTable.Cell>
+          <IndexTable.Cell>
+            <Button onClick={() => { navigate(`/mypages/${id}`); }}>Edit</Button>
+          </IndexTable.Cell>
         </IndexTable.Row>
       );
     }

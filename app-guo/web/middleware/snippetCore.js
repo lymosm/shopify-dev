@@ -112,9 +112,9 @@ export function SnippetCore() {
       }
       .xt-product-box{
         width: 25%;
-        max-width: 400px;
-        min-width: 320px;
-        height: 400px;
+        max-width: 230px;
+        min-width: 230px;
+        padding-bottom: 20px;
         border: 1px solid #ccc;
     }
     .xt-product-img img{

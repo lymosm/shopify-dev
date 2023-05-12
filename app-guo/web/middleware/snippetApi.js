@@ -68,7 +68,7 @@ app.get("/snippet/*", async (req, res) => {
   // google需要配置，否则报错cors error
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   // 允许的地址,http://127.0.0.1:9000这样的格式
-  res.setHeader('Access-Control-Allow-Origin', req.get('Origin'));
+  res.setHeader('Access-Control-Allow-Origin', "*");
   // 允许跨域请求的方法
   res.setHeader(
     'Access-Control-Allow-Methods',

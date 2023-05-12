@@ -97,13 +97,19 @@ export function SnippetCore() {
   <div class="xt-product-img">
     <img src="${pp.featuredImage.url}">
   </div>
-  <div class="xt-product-title">${pp.title}</div>
+  <div class="xt-product-title">
+    <h2>${pp.title}</h2>
+  </div>
   <div class="xt-product-action">
     <a class="xt-btn" href="${url}">Shop now</a>
   </div>
 </div>
       
       <style>
+      div{
+        box-sizing: border-box;
+        position: relative;
+      }
       .xt-product-box{
         width: 25%;
         max-width: 400px;

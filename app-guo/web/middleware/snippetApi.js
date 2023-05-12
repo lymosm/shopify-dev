@@ -66,10 +66,11 @@ export default function ApplySnippetApiEndpoints(app) {
   // <iframe src="hosts/snippet/xxxx"></iframe>
 app.get("/snippet/*", async (req, res) => {
   // google需要配置，否则报错cors error
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  //res.setHeader('Access-Control-Allow-Credentials', 'true');
   // 允许的地址,http://127.0.0.1:9000这样的格式
-  res.setHeader('Access-Control-Allow-Origin', "*");
+  //res.setHeader('Access-Control-Allow-Origin', "*");
   // 允许跨域请求的方法
+  /*
   res.setHeader(
     'Access-Control-Allow-Methods',
     'POST, GET, OPTIONS, DELETE, PUT'
@@ -79,6 +80,8 @@ app.get("/snippet/*", async (req, res) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since'
   );
+  */
+  res.setHeader('Content-Security-Policy', "default-src 'self' *.wp.com");
 
   const snippet = SnippetCore();
   const html = await snippet.dealSnippet(req, res);

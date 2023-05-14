@@ -101,7 +101,7 @@ export function SnippetCore() {
     <h2>${pp.title}</h2>
   </div>
   <div class="xt-product-action">
-    <a class="xt-btn" href="${url}">Shop now</a>
+    <a class="xt-btn" target="_top" href="${url}">Shop now</a>
   </div>
 </div>
       
@@ -112,8 +112,8 @@ export function SnippetCore() {
       }
       .xt-product-box{
         width: 25%;
-        max-width: 230px;
-        min-width: 230px;
+        max-width: 180px;
+        min-width: 180px;
         padding-bottom: 20px;
         border: 1px solid #ccc;
     }

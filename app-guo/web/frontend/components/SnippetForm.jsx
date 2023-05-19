@@ -14,6 +14,8 @@ import {
   TextStyle,
   Layout,
   EmptyState,
+  RadioButton,
+  DropZone
 } from "@shopify/polaris";
 import {
   ContextualSaveBar,
@@ -215,6 +217,35 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
   const isLoadingDiscounts = true;
   const discountOptions = [NO_DISCOUNT_OPTION];
 
+  const [value, setValue] = useState('product_radio');
+
+  /*
+  const handleChange = useCallback(
+    (_, newValue) => setValue(newValue),
+    [],
+  );
+  */
+ // var show_product = "block";
+ //  var  show_image = "none";
+ const [show_product, setProdcutShow] = useState("block");
+ const [show_image, setImageShow] = useState("none");
+  const handleChange = useCallback(
+    (a, val) => {
+      setValue(val);
+      if(val == "image_radio"){
+       // show_image = "block";
+       // show_product = "none";
+       setImageShow("block");
+       setProdcutShow("none");
+      }else{
+       // show_image = "none";
+       // show_product = "block";
+       setImageShow("none");
+       setProdcutShow("block");
+      }
+    }
+  );
+
   /*
     These variables are used to display product images, and will be populated when image URLs can be retrieved from the Admin.
   */
@@ -222,6 +253,50 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
   const originalImageSrc = selectedProduct?.images?.[0]?.originalSrc;
   const altText =
     selectedProduct?.images?.[0]?.altText || selectedProduct?.title;
+
+  
+  // image upload
+  const [files, setFiles] = useState([]);
+  const [rejectedFiles, setRejectedFiles] = useState([]);
+  const hasError = rejectedFiles.length > 0;
+  const multi_file = false;
+
+  const handleDrop = useCallback(
+    (_droppedFiles, acceptedFiles, rejectedFiles) => {
+      setFiles((files) => [...files, ...acceptedFiles]);
+      setRejectedFiles(rejectedFiles);
+    },
+    [],
+  );
+
+  const fileUpload = !files.length && <DropZone.FileUpload />;
+  const uploadedFiles = files.length > 0 && (
+      <div>
+      {files.map((file, index) => (
+          <Thumbnail
+            size="small"
+            alt={file.name}
+            source={window.URL.createObjectURL(file)}
+          />
+          
+      ))}
+      </div>
+  );
+
+  const errorMessage = hasError && (
+    <Banner
+      title="The following images couldn’t be uploaded:"
+      status="critical"
+    >
+      <List type="bullet">
+        {rejectedFiles.map((file, index) => (
+          <List.Item key={index}>
+            {`"${file.name}" is not supported. File type must be .gif, .jpg, .png or .svg.`}
+          </List.Item>
+        ))}
+      </List>
+    </Banner>
+  );
 
   /* The form layout, created using Polaris and App Bridge components. */
   return (
@@ -257,6 +332,23 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
               fullWidth
             />
             <FormLayout>
+              <RadioButton
+                label="Product"
+                helpText=""
+                checked={value === 'product_radio'}
+                id="product_radio"
+                name="accounts"
+                onChange={handleChange}
+              />
+              <RadioButton
+                label="Image"
+                helpText=""
+                id="image_radio"
+                name="accounts"
+                checked={value === 'image_radio'}
+                onChange={handleChange}
+              />
+
               <Card sectioned title="Title">
                 <TextField
                   {...title}
@@ -266,6 +358,8 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                 />
               </Card>
 
+              
+              <div id="product-box" style={{display: show_product}}>
               <Card
                 title="Product"
                 actions={[
@@ -324,6 +418,26 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                 </Card.Section>
                 
               </Card>
+              </div>
+
+              <div id="image-link-box" style={{display: show_image}}>
+              
+              <Card sectioned title="Image Info">
+                {errorMessage}
+                <DropZone accept="image/*" type="image" onDrop={handleDrop} allowMultiple={{multi_file}}>
+                  {uploadedFiles}
+                  {fileUpload}
+                </DropZone>
+                <br/>
+                <TextField
+                  {...title}
+                  label="Image Link"
+                  placeholder="Image Link"
+                  labelHidden
+                  helpText=""
+                />
+              </Card>
+              </div>
               
             </FormLayout>
           </Form>

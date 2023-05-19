@@ -61,7 +61,6 @@ export function guid() {
 }
 
 export function getSessionId(res){
-  console.log(res.locals.shopify.session);
   return res.locals.shopify.session.id;
 }
 
@@ -69,7 +68,7 @@ export function genSnippet(){
   if(guid_str == ""){
     guid();
   }
-  return '<iframe class="xt-snippet-frame" height="300" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"><iframe>';
+  return '<iframe class="xt-snippet-frame" height="300" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"></iframe>';
 }
 
 export async function getShopUrlFromSession(req, res) {

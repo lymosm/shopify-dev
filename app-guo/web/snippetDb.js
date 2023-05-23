@@ -21,6 +21,9 @@ export const SnippetDb = {
     variantId,
     handle,
     session_id,
+    img_url,
+    img_link,
+    type,
     snippet,
     code,
     destination,
@@ -28,7 +31,7 @@ export const SnippetDb = {
     await this.ready;
     const query = `
       INSERT INTO ${this.qrCodesTableName}
-      (shopDomain, title, productId, variantId, handle, session_id, snippet, code, destination, scans)
+      (shopDomain, title, productId, variantId, handle, session_id, img_url, img_link, type, snippet, code, destination, scans)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
       RETURNING id;
     `;
@@ -40,6 +43,9 @@ export const SnippetDb = {
       variantId,
       handle,
       session_id,
+      img_url, 
+      img_link,
+      type,
       snippet,
       code,
       destination,
@@ -56,6 +62,9 @@ export const SnippetDb = {
       variantId,
       handle,
       session_id,
+      img_url,
+      img_link,
+      type,
       destination,
     }
   ) {
@@ -69,6 +78,9 @@ export const SnippetDb = {
         variantId = ?,
         handle = ?,
         session_id = ?,
+        img_url = ?,
+        img_link = ?,
+        type = ?,
         destination = ?
       WHERE
         id = ?;
@@ -80,6 +92,9 @@ export const SnippetDb = {
       variantId,
       handle,
       session_id,
+      img_url,
+      img_link,
+      type,
       destination,
       id,
     ]);
@@ -206,8 +221,11 @@ export const SnippetDb = {
           variantId VARCHAR(255) NOT NULL,
           handle VARCHAR(255) NOT NULL,
           session_id VARCHAR(255) NOT NULL default "",
+          img_url VARCHAR(500) NOT NULL default "",
+          img_link VARCHAR(500) NOT NULL default "",
           snippet VARCHAR(500) NOT NULL,
           code VARCHAR(500) NOT NULL,
+          type integer default 1,
           destination VARCHAR(255) NOT NULL default "",
           scans INTEGER,
           createdAt DATETIME NOT NULL DEFAULT (datetime(CURRENT_TIMESTAMP, 'localtime')),

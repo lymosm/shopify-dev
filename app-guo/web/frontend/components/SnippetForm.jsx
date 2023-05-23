@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import { UploadOutlined } from '@ant-design/icons';
+import { Button as ButtonAnt, message, Upload } from 'antd';
 import {
   Banner,
   Card,
@@ -24,6 +26,11 @@ import {
   useNavigate,
 } from "@shopify/app-bridge-react";
 import { ImageMajor, AlertMinor } from "@shopify/polaris-icons";
+import { getSessionToken } from "@shopify/app-bridge/utilities";
+import createApp from "@shopify/app-bridge";
+// import shopify from "../../snippetShopify.js";
+
+
 
 /* Import the useAuthenticatedFetch hook included in the Node app template */
 import { useAuthenticatedFetch, useAppQuery } from "../hooks";
@@ -48,6 +55,34 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
   const appBridge = useAppBridge();
   const fetch = useAuthenticatedFetch();
   const deletedProduct = QRCode?.product?.title === "Deleted product";
+  
+  /*
+  const apps = createApp({
+    apiKey: "cea5899eeb25a81856ce4f691daed195",
+  });
+  */
+ // console.log(shopify);
+  
+// const token = getSessionToken(app);
+ // console.log(token);
+  const props = {
+    name: 'file',
+   // action: "/api/image-upload",
+    action: "/apis/image-upload",
+    headers: {
+      Authorization: 'Bearer ',
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
 
   /*
     This is a placeholder function that is triggered when the user hits the "Save" button.
@@ -423,11 +458,10 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
               <div id="image-link-box" style={{display: show_image}}>
               
               <Card sectioned title="Image Info">
-                {errorMessage}
-                <DropZone accept="image/*" type="image" onDrop={handleDrop} allowMultiple={{multi_file}}>
-                  {uploadedFiles}
-                  {fileUpload}
-                </DropZone>
+                <Upload {...props}>
+                  <ButtonAnt icon={<UploadOutlined />}>Click to Upload</ButtonAnt>
+                </Upload>
+                
                 <br/>
                 <TextField
                   {...title}

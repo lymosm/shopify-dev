@@ -1,4 +1,5 @@
 import { useNavigate } from "@shopify/app-bridge-react";
+import {copy} from "copy-to-clipboard";
 import {
   Card,
   Icon,
@@ -76,6 +77,11 @@ export function SnippetList({ QRCodes, loading }) {
   /* Check if screen is small */
   const isSmallScreen = useMedia("(max-width: 640px)");
 
+  var copyTo =  function(txt){
+    copy(txt);
+    Toast("copied", "", false);
+  }
+
   /* Map over QRCodes for small screen */
   const smallScreenMarkup = QRCodes.map((QRCode) => (
     <SmallScreenCard key={QRCode.id} navigate={navigate} {...QRCode} />
@@ -106,9 +112,7 @@ export function SnippetList({ QRCodes, loading }) {
               {truncate(title, 25)}
           </IndexTable.Cell>
           <IndexTable.Cell>
-            
-              {snippet}
-            
+              <Button onClick={() => copyTo(snippet)}>Copy Snippet</Button>            
           </IndexTable.Cell>
           
           <IndexTable.Cell>

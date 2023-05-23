@@ -110,6 +110,39 @@ app.get("/snippet/*", async (req, res) => {
     }
   });
 
+  app.post("/api/image-upload", async (req, res) => {
+    try {
+      console.log("upload in...");
+      const res = {status: 1};
+      res.status(201).send(res);
+    } catch (error) {
+      console.log("submit error ");
+      res.status(500).send(error.message);
+    }
+  });
+
+  app.post("/apis/image-upload", async (req, res) => {
+    try {
+      console.log("upload in...");
+      const res = {status: 1};
+      res.status(201).send(res);
+    } catch (error) {
+      console.log("submit error ");
+      res.status(500).send(error.message);
+    }
+  });
+
+  app.get("/apis/image-upload", async (req, res) => {
+    try {
+      console.log("upload in...");
+      const res = {status: 1};
+      res.status(201).send(res);
+    } catch (error) {
+      console.log("submit error ");
+      res.status(500).send(error.message);
+    }
+  });
+
   app.patch("/api/qrcodes/:id", async (req, res) => {
     console.log("/api/qrcodes/:id");
     const qrcode = await getQrCodeOr404(req, res);

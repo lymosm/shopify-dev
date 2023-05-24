@@ -139,7 +139,7 @@ app.get("/snippet/*", async (req, res) => {
           let file = files;
           saveFile(file, (err) => {
             res.send(err || 'upload success');
-          }
+          });
       });
 
       const ret = {status: 1};

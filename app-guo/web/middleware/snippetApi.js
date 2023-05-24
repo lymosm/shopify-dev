@@ -11,8 +11,8 @@ import express from "express";
 import shopify from "../snippetShopify.js"; 
 import { SnippetDb } from "../snippetDb.js";
 import { SnippetCore } from "./snippetCore.js";
-// import { formidable } from "formidable";
-const formidable = require('formidable');
+import { formidable } from "formidable";
+// const formidable = require('formidable');
 import {
   getQrCodeOr404,
   getShopUrlFromSession,

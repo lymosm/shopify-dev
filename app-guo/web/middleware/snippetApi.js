@@ -11,6 +11,7 @@ import express from "express";
 import shopify from "../snippetShopify.js"; 
 import { SnippetDb } from "../snippetDb.js";
 import { SnippetCore } from "./snippetCore.js";
+import { formidable } from "formidable";
 import {
   getQrCodeOr404,
   getShopUrlFromSession,
@@ -113,8 +114,8 @@ app.get("/snippet/*", async (req, res) => {
   app.post("/api/image-upload", async (req, res) => {
     try {
       console.log("upload in...");
-      const res = {status: 1};
-      res.status(201).send(res);
+      const ret = {status: 1};
+      res.status(201).send(ret);
     } catch (error) {
       console.log("submit error ");
       res.status(500).send(error.message);
@@ -124,24 +125,31 @@ app.get("/snippet/*", async (req, res) => {
   app.post("/apis/image-upload", async (req, res) => {
     try {
       console.log("upload in...");
-      const res = {status: 1};
-      res.status(201).send(res);
+      function saveFile(file, callback){
+          let savePath = path.resolve(__dirname, `../static/${file.name}`)
+          let sourcePath = file.path;
+
+          fs.rename(sourcePath, savePath, (err) => {
+            callback(err);
+          });
+      }
+
+      let form = new formidable.IncomingForm();
+      form.parse(req, function(err, fields, files) {
+          let file = files;
+          saveFile(file, (err) => {
+            res.send(err || 'upload success');
+          }
+      });
+
+      const ret = {status: 1};
+      res.status(201).send(ret);
     } catch (error) {
       console.log("submit error ");
       res.status(500).send(error.message);
     }
   });
 
-  app.get("/apis/image-upload", async (req, res) => {
-    try {
-      console.log("upload in...");
-      const res = {status: 1};
-      res.status(201).send(res);
-    } catch (error) {
-      console.log("submit error ");
-      res.status(500).send(error.message);
-    }
-  });
 
   app.patch("/api/qrcodes/:id", async (req, res) => {
     console.log("/api/qrcodes/:id");

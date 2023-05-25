@@ -136,12 +136,12 @@ app.post("/snippetaaa/*", async (req, res) => {
   app.post("/apis/image-upload", async (req, res) => {
     try {
       console.log("upload in...");
+      function getNum(i){
+        return i < 10 ? ("0" + i) : i;
+      }
       function saveFile(file, callback){
         console.log("save file");
-        console.log(file);
-        function getNum(i){
-          return i < 10 ? ("0" + i) : i;
-        }
+        
          // let savePath = path.resolve(__dirname, `../static/${file.name}`)
          const date = new Date();
          const time = date.getTime();
@@ -150,6 +150,7 @@ app.post("/snippetaaa/*", async (req, res) => {
 
          var dir = "static";
         if(! existsSync(dir)){
+          console.log("dir");
           mkdir(dir);
         }
         dir += "/" + year + month;

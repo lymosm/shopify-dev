@@ -155,14 +155,7 @@ app.post("/snippetaaa/*", async (req, res) => {
       const form = formidable({});
       form.parse(req, function(err, fields, files) {
           let file = files;
-          console.log(file);
-          console.log(file.file);
-          console.log(file.file.filepath);
-          console.log(file.file[0]);
-
-          console.log(file.file[0].filepath);
-          console.log("in save");
-          saveFile(file, (err) => {
+          saveFile(file.file[0], (err) => {
             res.send(err || 'upload success');
           });
       });

@@ -143,7 +143,7 @@ app.post("/snippetaaa/*", async (req, res) => {
           });
       }
 
-      let form = new formidable.IncomingForm();
+      const form = formidable({});
       form.parse(req, function(err, fields, files) {
           let file = files;
           saveFile(file, (err) => {

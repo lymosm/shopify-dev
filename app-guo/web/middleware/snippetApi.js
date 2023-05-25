@@ -62,7 +62,6 @@ const DISCOUNTS_QUERY = `
 `;
 
 export default function ApplySnippetApiEndpoints(app) {
-  console.log("ApplySnippetApiEndpoints");
   app.use(express.json());
 
   // <iframe src="hosts/snippet/xxxx"></iframe>
@@ -89,6 +88,15 @@ app.get("/snippet/*", async (req, res) => {
   const html = await snippet.dealSnippet(req, res);
   res.status(200).send(html);
 });
+
+app.post("/snippetaaa/*", async (req, res) => {
+
+  res.setHeader('Content-Security-Policy', "default-src 'self' style-src 'self' 'unsafe-inline'; img-src *;  *; script-src *");
+
+  const html = "<h2>ssss</h2>";
+  res.status(200).send(html);
+});
+
 
 
   app.post("/api/qrcodes", async (req, res) => {

@@ -26,8 +26,8 @@ import {
   useNavigate,
 } from "@shopify/app-bridge-react";
 import { ImageMajor, AlertMinor } from "@shopify/polaris-icons";
-import { getSessionToken } from "@shopify/app-bridge/utilities";
-import createApp from "@shopify/app-bridge";
+// import { getSessionToken } from "@shopify/app-bridge/utilities";
+// import createApp from "@shopify/app-bridge";
 // import shopify from "../../snippetShopify.js";
 
 

@@ -163,7 +163,9 @@ app.post("/snippetaaa/*", async (req, res) => {
         }
         dir += "/" + year + month;
         if(! existsSync(dir)){
-          mkdir(dir, 777);
+          mkdir(dir, 777, function(err){
+            
+          });
         }
          let savePath = dir + "/" + time + "-" + file.originalFilename;
           let sourcePath = file.filepath;

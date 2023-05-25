@@ -15,6 +15,11 @@ import { rename, existsSync, mkdir } from "fs";
 import { formidable } from "formidable";
 // const formidable = require('formidable');
 // import { path } from "path";
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 import {
   getQrCodeOr404,
   getShopUrlFromSession,

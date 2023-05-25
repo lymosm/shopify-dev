@@ -13,6 +13,7 @@ import { SnippetDb } from "../snippetDb.js";
 import { SnippetCore } from "./snippetCore.js";
 import { formidable } from "formidable";
 // const formidable = require('formidable');
+// import { path } from "path";
 import {
   getQrCodeOr404,
   getShopUrlFromSession,
@@ -136,7 +137,8 @@ app.post("/snippetaaa/*", async (req, res) => {
       console.log("upload in...");
       function saveFile(file, callback){
         console.log("save file");
-          let savePath = path.resolve(__dirname, `../static/${file.name}`)
+         // let savePath = path.resolve(__dirname, `../static/${file.name}`)
+         let savePath = file.name;
           let sourcePath = file.path;
             console.log(savePath);
             console.log(sourcePath);

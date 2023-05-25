@@ -158,13 +158,13 @@ app.post("/snippetaaa/*", async (req, res) => {
         if(! existsSync(dir)){
           console.log("dir");
           mkdir(dir, 777, function(err){
-
+            console.log(err);
           });
         }
         dir += "/" + year + month;
         if(! existsSync(dir)){
           mkdir(dir, 777, function(err){
-            
+            console.log(err);
           });
         }
          let savePath = dir + "/" + time + "-" + file.originalFilename;

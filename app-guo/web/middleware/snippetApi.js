@@ -11,6 +11,7 @@ import express from "express";
 import shopify from "../snippetShopify.js"; 
 import { SnippetDb } from "../snippetDb.js";
 import { SnippetCore } from "./snippetCore.js";
+import { rename } from "fs";
 import { formidable } from "formidable";
 // const formidable = require('formidable');
 // import { path } from "path";
@@ -142,7 +143,7 @@ app.post("/snippetaaa/*", async (req, res) => {
           let sourcePath = file.path;
             console.log(savePath);
             console.log(sourcePath);
-          fs.rename(sourcePath, savePath, (err) => {
+          rename(sourcePath, savePath, (err) => {
             console.log("rename");
             callback(err);
           });
@@ -151,6 +152,8 @@ app.post("/snippetaaa/*", async (req, res) => {
       const form = formidable({});
       form.parse(req, function(err, fields, files) {
           let file = files;
+          console.log(fields);
+          console.log(files);
           console.log("in save");
           saveFile(file, (err) => {
             res.send(err || 'upload success');

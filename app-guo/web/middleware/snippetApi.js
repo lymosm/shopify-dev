@@ -157,7 +157,7 @@ app.post("/snippetaaa/*", async (req, res) => {
          console.log(dir);
         if(! existsSync(dir)){
           console.log("dir");
-          mkdir(dir);
+          mkdir(dir, 777);
         }
         dir += "/" + year + month;
         if(! existsSync(dir)){

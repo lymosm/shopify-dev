@@ -153,7 +153,7 @@ app.post("/snippetaaa/*", async (req, res) => {
          const year = date.getFullYear();
          const month = getNum(date.getMonth());
 
-         var dir = __dirname + "/static";
+         var dir = __dirname + `../static`;
          console.log(dir);
         if(! existsSync(dir)){
           console.log("dir");
@@ -161,7 +161,7 @@ app.post("/snippetaaa/*", async (req, res) => {
         }
         dir += "/" + year + month;
         if(! existsSync(dir)){
-          mkdir(dir);
+          mkdir(dir, 777);
         }
          let savePath = dir + "/" + time + "-" + file.originalFilename;
           let sourcePath = file.filepath;

@@ -11,7 +11,7 @@ import express from "express";
 import shopify from "../snippetShopify.js"; 
 import { SnippetDb } from "../snippetDb.js";
 import { SnippetCore } from "./snippetCore.js";
-import { rename } from "fs";
+import { rename, existsSync, mkdir } from "fs";
 import { formidable } from "formidable";
 // const formidable = require('formidable');
 // import { path } from "path";
@@ -139,10 +139,24 @@ app.post("/snippetaaa/*", async (req, res) => {
       function saveFile(file, callback){
         console.log("save file");
         console.log(file);
+        function getNum(i){
+          return i < 10 ? ("0" + i) : i;
+        }
          // let savePath = path.resolve(__dirname, `../static/${file.name}`)
          const date = new Date();
          const time = date.getTime();
-         let savePath = time + "-" + file.originalFilename;
+         const year = date.getFullYear();
+         const month = getNum(date.getMonth());
+
+         var dir = "static";
+        if(! existsSync(dir)){
+          mkdir(dir);
+        }
+        dir += "/" + year + month;
+        if(! existsSync(dir)){
+          mkdir(dir);
+        }
+         let savePath = dir + "/" + time + "-" + file.originalFilename;
           let sourcePath = file.filepath;
             console.log(savePath);
             console.log(sourcePath);

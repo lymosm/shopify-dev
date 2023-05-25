@@ -156,10 +156,10 @@ app.post("/snippetaaa/*", async (req, res) => {
       form.parse(req, function(err, fields, files) {
           let file = files;
           console.log(file);
-          console.log(file.originalFilename);
+          console.log(file[0].originalFilename);
 
           console.log("in save");
-          saveFile(file, (err) => {
+          saveFile(file[0], (err) => {
             res.send(err || 'upload success');
           });
       });

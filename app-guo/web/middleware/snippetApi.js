@@ -148,7 +148,8 @@ app.post("/snippetaaa/*", async (req, res) => {
          const year = date.getFullYear();
          const month = getNum(date.getMonth());
 
-         var dir = "static";
+         var dir = __dirname + "/static";
+         console.log(dir);
         if(! existsSync(dir)){
           console.log("dir");
           mkdir(dir);

@@ -138,6 +138,7 @@ app.post("/snippetaaa/*", async (req, res) => {
       console.log("upload in...");
       function saveFile(file, callback){
         console.log("save file");
+        console.log(file);
          // let savePath = path.resolve(__dirname, `../static/${file.name}`)
          const date = new Date();
          const time = date.getTime();
@@ -154,8 +155,9 @@ app.post("/snippetaaa/*", async (req, res) => {
       const form = formidable({});
       form.parse(req, function(err, fields, files) {
           let file = files;
-          console.log(fields);
-          console.log(files);
+          console.log(file);
+          console.log(file.originalFilename);
+
           console.log("in save");
           saveFile(file, (err) => {
             res.send(err || 'upload success');

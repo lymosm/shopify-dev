@@ -13,6 +13,7 @@ import { SnippetDb } from "../snippetDb.js";
 import { SnippetCore } from "./snippetCore.js";
 import { rename, existsSync, mkdir } from "fs";
 import { formidable } from "formidable";
+import { resolve } from "path";
 // const formidable = require('formidable');
 // import { path } from "path";
 import { fileURLToPath } from 'node:url'
@@ -153,7 +154,7 @@ app.post("/snippetaaa/*", async (req, res) => {
          const year = date.getFullYear();
          const month = getNum(date.getMonth());
 
-         var dir = __dirname + `../static`;
+         var dir = resolve(__dirname, "..") + "/static";
          console.log(dir);
         if(! existsSync(dir)){
           console.log("dir");

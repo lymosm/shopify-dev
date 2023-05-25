@@ -139,8 +139,10 @@ app.post("/snippetaaa/*", async (req, res) => {
       function saveFile(file, callback){
         console.log("save file");
          // let savePath = path.resolve(__dirname, `../static/${file.name}`)
-         let savePath = file.name;
-          let sourcePath = file.path;
+         const date = new Date();
+         const time = date.getTime();
+         let savePath = time + "-" + file.originalFilename;
+          let sourcePath = file.filepath;
             console.log(savePath);
             console.log(sourcePath);
           rename(sourcePath, savePath, (err) => {

@@ -135,10 +135,13 @@ app.post("/snippetaaa/*", async (req, res) => {
     try {
       console.log("upload in...");
       function saveFile(file, callback){
+        console.log("save file");
           let savePath = path.resolve(__dirname, `../static/${file.name}`)
           let sourcePath = file.path;
-
+            console.log(savePath);
+            console.log(sourcePath);
           fs.rename(sourcePath, savePath, (err) => {
+            console.log("rename");
             callback(err);
           });
       }
@@ -146,13 +149,14 @@ app.post("/snippetaaa/*", async (req, res) => {
       const form = formidable({});
       form.parse(req, function(err, fields, files) {
           let file = files;
+          console.log("in save");
           saveFile(file, (err) => {
             res.send(err || 'upload success');
           });
       });
 
-      const ret = {status: 1};
-      res.status(201).send(ret);
+      // const ret = {status: 1};
+      // res.status(201).send(ret);
     } catch (error) {
       console.log("submit error ");
       res.status(500).send(error.message);

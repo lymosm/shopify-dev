@@ -73,13 +73,14 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       Authorization: 'Bearer ',
     },
     onChange(info) {
-      console.log(info);
+      
       if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
+       // console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
+        console.log(info);
         message.success(`${info.file.name} file uploaded successfully`);
-        uploadCallback(info.response.url);
+        uploadCallback(info.file.response.url);
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -158,11 +159,14 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
         value: QRCode?.title || "",
         validates: [notEmptyString("Please name your snippet")],
       }),
+      /*
       productId: useField({
         value: deletedProduct ? "Deleted product" : QRCode?.product?.id || "",
         validates: [notEmptyString("Please select a product")],
       }),
+      */
       variantId: useField(QRCode?.variantId || ""),
+      productId: useField(QRCode?.product?.id || ""),
       handle: useField(QRCode?.handle || ""),
       destination: useField(
         QRCode?.destination ? [QRCode.destination] : ["product"]

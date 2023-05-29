@@ -11,7 +11,7 @@ import express from "express";
 import shopify from "../snippetShopify.js"; 
 import { SnippetDb } from "../snippetDb.js";
 import { SnippetCore } from "./snippetCore.js";
-import { rename, existsSync, mkdir } from "fs";
+import { rename, existsSync, mkdir, readFile } from "fs";
 import { formidable } from "formidable";
 import { resolve } from "path";
 // const formidable = require('formidable');
@@ -139,6 +139,32 @@ app.post("/snippetaaa/*", async (req, res) => {
     }
   });
 
+  app.get("/images/*", async (req, res) => {
+    const mime = {
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".png": "image/png",
+      ".gif": "image/gif",
+    };
+    console.log(req);
+    console.log(req.url);
+    readFile(req.url, (err, data) => {
+      if(err){
+        res.statusCode = 404;
+        res.end("404 Not Found");
+      }else{
+        const suffix = "." + req.url.split(".").pop();
+        if(mime[suffix]){
+          res.setHeader("Content-Type", mime[suffix]);
+          res.end(data);
+        }else{
+          res.statusCode = 416;
+          res.end("Not Supported");
+        } 
+      }
+    });
+  });
+
   app.post("/apis/image-upload", async (req, res) => {
     try {
       console.log("upload in...");
@@ -155,9 +181,7 @@ app.post("/snippetaaa/*", async (req, res) => {
          const month = getNum(date.getMonth());
 
          var dir = resolve(__dirname, "..") + "/static";
-         console.log(dir);
         if(! existsSync(dir)){
-          console.log("dir");
           mkdir(dir, 777, function(err){
             console.log(err);
           });
@@ -170,10 +194,7 @@ app.post("/snippetaaa/*", async (req, res) => {
         }
          let savePath = dir + "/" + time + "-" + file.originalFilename;
           let sourcePath = file.filepath;
-            console.log(savePath);
-            console.log(sourcePath);
           rename(sourcePath, savePath, (err) => {
-            console.log("rename");
             callback(err);
           });
       }

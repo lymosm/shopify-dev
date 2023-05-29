@@ -79,7 +79,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
-        uploadCallback(info.file.response.url);
+        uploadCallback(info.response.url);
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -145,6 +145,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       handle,
       discountCode,
       destination,
+      img_link
     },
     dirty,
     reset,
@@ -155,7 +156,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
     fields: {
       title: useField({
         value: QRCode?.title || "",
-        validates: [notEmptyString("Please name your QR code")],
+        validates: [notEmptyString("Please name your snippet")],
       }),
       productId: useField({
         value: deletedProduct ? "Deleted product" : QRCode?.product?.id || "",
@@ -167,6 +168,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
         QRCode?.destination ? [QRCode.destination] : ["product"]
       ),
       discountCode: useField(QRCode?.discountCode || ""),
+      img_link: useField(QRCode?.img_link || ""),
     },
     onSubmit,
   });
@@ -471,7 +473,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                 <input type="hidden" name="img_url" value={{img_url}}></input>
                 <br/>
                 <TextField
-                  {...title}
+                  {...img_link}
                   label="Image Link"
                   placeholder="Image Link"
                   labelHidden

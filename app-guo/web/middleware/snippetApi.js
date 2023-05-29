@@ -210,6 +210,8 @@ app.post("/snippetaaa/*", async (req, res) => {
               status: true,
               url: url
             };
+            console.log("url");
+            console.log(url);
             res.send(err || ts);
           });
       });

@@ -169,6 +169,7 @@ app.post("/snippetaaa/*", async (req, res) => {
   app.post("/apis/image-upload", async (req, res) => {
     try {
       console.log("upload in...");
+      var url = "";
       function getNum(i){
         return i < 10 ? ("0" + i) : i;
       }
@@ -187,7 +188,7 @@ app.post("/snippetaaa/*", async (req, res) => {
             console.log(err);
           });
         }
-        var url = "/static/" + year + month;
+        url += "/static/" + year + month;
         dir += "/" + year + month;
         if(! existsSync(dir)){
           mkdir(dir, 777, function(err){
@@ -197,7 +198,7 @@ app.post("/snippetaaa/*", async (req, res) => {
          let savePath = dir + "/" + time + "-" + file.originalFilename;
          url += "/" + time + "-" + file.originalFilename;
           let sourcePath = file.filepath;
-          rename(sourcePath, savePath, (err, url) => {
+          rename(sourcePath, savePath, (err) => {
             callback(err, url);
           });
       }
@@ -205,7 +206,7 @@ app.post("/snippetaaa/*", async (req, res) => {
       const form = formidable({});
       form.parse(req, function(err, fields, files) {
           let file = files;
-          saveFile(file.file[0], (err, url) => {
+          saveFile(file.file[0], (err) => {
             const ts = {
               status: true,
               url: url

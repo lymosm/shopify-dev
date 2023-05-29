@@ -32,7 +32,7 @@ export const SnippetDb = {
     const query = `
       INSERT INTO ${this.qrCodesTableName}
       (shopDomain, title, productId, variantId, handle, session_id, img_url, img_link, type, snippet, code, destination, scans)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
       RETURNING id;
     `;
 

@@ -146,7 +146,8 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       handle,
       discountCode,
       destination,
-      img_link
+      img_link,
+      img_url
     },
     dirty,
     reset,
@@ -173,6 +174,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       ),
       discountCode: useField(QRCode?.discountCode || ""),
       img_link: useField(QRCode?.img_link || ""),
+      img_url: useField(QRCode?.img_url || ""),
     },
     onSubmit,
   });
@@ -312,7 +314,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
     [],
   );
 
-  const [img_url, setImageUrl] = useState("");
+  const [img_url_ipt, setImageUrl] = useState("");
   const uploadCallback = useCallback((url) => {
     setImageUrl(url);
   });
@@ -474,7 +476,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                 <Upload {...props}>
                   <ButtonAnt icon={<UploadOutlined />}>Click to Upload</ButtonAnt>
                 </Upload>
-                <input type="hidden" name="img_url" value={{img_url}}></input>
+                <input type="hidden" name="img_url" value={{img_url_ipt}}></input>
                 <br/>
                 <TextField
                   {...img_link}

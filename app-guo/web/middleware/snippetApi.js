@@ -146,9 +146,10 @@ app.post("/snippetaaa/*", async (req, res) => {
       ".png": "image/png",
       ".gif": "image/gif",
     };
-    console.log(req);
-    console.log(req.url);
-    readFile(req.url, (err, data) => {
+    
+    var dir = resolve(__dirname, "..") + "/"
+    const path = dir + req.url.replace("/images/", ""); 
+    readFile(path, (err, data) => {
       if(err){
         res.statusCode = 404;
         res.end("404 Not Found");
@@ -186,6 +187,7 @@ app.post("/snippetaaa/*", async (req, res) => {
             console.log(err);
           });
         }
+        var url = "/static/" + year + month;
         dir += "/" + year + month;
         if(! existsSync(dir)){
           mkdir(dir, 777, function(err){
@@ -193,17 +195,22 @@ app.post("/snippetaaa/*", async (req, res) => {
           });
         }
          let savePath = dir + "/" + time + "-" + file.originalFilename;
+         url += "/" + time + "-" + file.originalFilename;
           let sourcePath = file.filepath;
-          rename(sourcePath, savePath, (err) => {
-            callback(err);
+          rename(sourcePath, savePath, (err, url) => {
+            callback(err, url);
           });
       }
 
       const form = formidable({});
       form.parse(req, function(err, fields, files) {
           let file = files;
-          saveFile(file.file[0], (err) => {
-            res.send(err || 'upload success');
+          saveFile(file.file[0], (err, url) => {
+            const ts = {
+              status: true,
+              url: url
+            };
+            res.send(err || ts);
           });
       });
 

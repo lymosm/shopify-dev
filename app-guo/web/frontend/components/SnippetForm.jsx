@@ -73,11 +73,13 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       Authorization: 'Bearer ',
     },
     onChange(info) {
+      console.log(info);
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
+        uploadCallback(info.file.response.url);
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -304,6 +306,11 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
     [],
   );
 
+  const [img_url, setImageUrl] = useState("");
+  const uploadCallback = useCallback((url) => {
+    setImageUrl(url);
+  });
+
   const fileUpload = !files.length && <DropZone.FileUpload />;
   const uploadedFiles = files.length > 0 && (
       <div>
@@ -461,7 +468,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                 <Upload {...props}>
                   <ButtonAnt icon={<UploadOutlined />}>Click to Upload</ButtonAnt>
                 </Upload>
-                
+                <input type="hidden" name="img_url" value={{img_url}}></input>
                 <br/>
                 <TextField
                   {...title}

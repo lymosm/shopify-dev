@@ -65,50 +65,71 @@ export function SnippetCore() {
       const data = await SnippetDb.getByCode(code);
       const product_id = data.productId;
       const session_id = data.session_id;
-      console.log("session_id: " + session_id);
-      const session = await SnippetDb.getSession(session_id);
-      const session_obj = {
-        session: session
-      };
-      console.log(session_obj);
+      const type = data.type;
 
-     // const client = new shopify.api.clients.Graphql(res.locals.shopify.session);
-      const client = new shopify.api.clients.Graphql(session_obj);
-      const product_data = await client.query({
-        data: `query {
-          product(id: "${product_id}") {
-            title
-            description
-            onlineStoreUrl
-            onlineStorePreviewUrl
-            featuredImage {
-              url
-            }
-            onlineStoreUrl
-          }
-        }`,
-      });
-      const pp = product_data.body.data.product;
-      var url = pp.onlineStoreUrl ?? pp.onlineStorePreviewUrl;
-      console.log(pp);
       var html = "<!DOCTYPE html><html><head></head><body>";
-      html += `
-      <div class="xt-product-box">
-  <div class="xt-product-img">
-    <img src="${pp.featuredImage.url}">
-  </div>
-  <div class="xt-product-title">
-    <h2>${pp.title}</h2>
-  </div>
-  <div class="xt-product-action">
-    <a class="xt-btn" target="_top" href="${url}">Shop now</a>
-  </div>
-</div>
-      
+
+      if(type == 1){
+        console.log("session_id: " + session_id);
+        const session = await SnippetDb.getSession(session_id);
+        const session_obj = {
+          session: session
+        };
+        console.log(session_obj);
+      // const client = new shopify.api.clients.Graphql(res.locals.shopify.session);
+        const client = new shopify.api.clients.Graphql(session_obj);
+        const product_data = await client.query({
+          data: `query {
+            product(id: "${product_id}") {
+              title
+              description
+              onlineStoreUrl
+              onlineStorePreviewUrl
+              featuredImage {
+                url
+              }
+              onlineStoreUrl
+            }
+          }`,
+        });
+        const pp = product_data.body.data.product;
+        var url = pp.onlineStoreUrl ?? pp.onlineStorePreviewUrl;
+        console.log(pp);
+
+        html += `
+          <div class="xt-product-box">
+          <div class="xt-product-img">
+            <img src="${pp.featuredImage.url}">
+          </div>
+          <div class="xt-product-title">
+            <h2>${pp.title}</h2>
+          </div>
+          <div class="xt-product-action">
+            <a class="xt-btn" target="_top" href="${url}">Shop now</a>
+          </div>
+        </div>`;
+      }else{
+        html += `
+          <div class="xt-image-box">
+            <a href="${data.img_link}">
+              <img src="${data.img_url}">
+            </a>
+          </div>
+        `;
+      }
+
+html += `
       <style>
       div{
         box-sizing: border-box;
         position: relative;
+      }
+      .xt-image-box{
+        width: 100%;
+        height: 100vh;
+      }
+      .xt-image-box img{
+        width: 100%;
       }
       .xt-product-box{
         width: 25%;

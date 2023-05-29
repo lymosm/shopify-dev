@@ -94,6 +94,8 @@ export async function parseQrCodeBody(req, res) {
     handle: req.body.handle,
     session_id: getSessionId(res),
     snippet: genSnippet(),
+    img_url: req.body.img_url,
+    img_link: req.body.img_link,
     code: guid_str,
     destination: "",
   };

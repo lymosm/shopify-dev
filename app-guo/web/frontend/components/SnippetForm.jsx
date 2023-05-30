@@ -314,8 +314,9 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
     [],
   );
 
-  const [img_url_ipt, setImageUrl] = useState("");
+  [img_url, setImageUrl] = useState("");
   const uploadCallback = useCallback((url) => {
+    console.log("url: " + url);
     setImageUrl(url);
   });
 
@@ -476,7 +477,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                 <Upload {...props}>
                   <ButtonAnt icon={<UploadOutlined />}>Click to Upload</ButtonAnt>
                 </Upload>
-                <input type="hidden" name="img_url" value={{img_url_ipt}}></input>
+                <input type="hidden" name="img_url" value={{img_url}}></input>
                 <br/>
                 <TextField
                   {...img_link}

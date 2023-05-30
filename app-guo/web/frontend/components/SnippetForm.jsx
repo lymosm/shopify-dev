@@ -321,6 +321,7 @@ var setImageUrl;
   const uploadCallback = useCallback((url) => {
     console.log("url: " + url);
     setImageUrl(url);
+    console.log("img_url_ipt: " + img_url_ipt);
   });
 
   const fileUpload = !files.length && <DropZone.FileUpload />;

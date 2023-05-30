@@ -177,7 +177,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       ),
       discountCode: useField(QRCode?.discountCode || ""),
       img_link: useField(QRCode?.img_link || ""),
-      img_url: useField(QRCode?.img_url || img_url_ipt),
+      img_url: useField(QRCode?.img_url || ""),
     },
     onSubmit,
   });
@@ -316,12 +316,13 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
     },
     [],
   );
-var setImageUrl;
-[img_url_ipt, setImageUrl] = useState("");
+
+// [img_url_ipt, setImageUrl] = useState("");
   const uploadCallback = useCallback((url) => {
     console.log("url: " + url);
-    setImageUrl(url);
-    console.log("img_url_ipt: " + img_url_ipt);
+   // setImageUrl(url);
+   img_url.onChange(url);
+    console.log("img_url: " + img_url);
   });
 
   const fileUpload = !files.length && <DropZone.FileUpload />;
@@ -483,7 +484,7 @@ var setImageUrl;
                 </Upload>
                 <input type="hidden" name="img_url" value={{img_url}}></input>
                 <TextField
-                  {...img_url_ipt}
+                  {...img_url}
                   label="Image Url"
                   placeholder="Image Url"
                   labelHidden

@@ -78,9 +78,11 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
        // console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
-        console.log(info);
+        // console.log(info);
         message.success(`${info.file.name} file uploaded successfully`);
+        console.log("upload success");
         uploadCallback(info.file.response.url);
+        console.log("upload end");
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -480,7 +482,7 @@ var setImageUrl;
                 </Upload>
                 <input type="hidden" name="img_url" value={{img_url}}></input>
                 <TextField
-                  {...img_url}
+                  {...img_url_ipt}
                   label="Image Url"
                   placeholder="Image Url"
                   labelHidden

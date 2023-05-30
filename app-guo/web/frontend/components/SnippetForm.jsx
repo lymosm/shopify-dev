@@ -129,6 +129,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
     [QRCode, setQRCode]
   );
 
+  var img_url_ipt = "";
   /*
     Sets up the form state with the useForm hook.
 
@@ -174,7 +175,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       ),
       discountCode: useField(QRCode?.discountCode || ""),
       img_link: useField(QRCode?.img_link || ""),
-      img_url: useField(QRCode?.img_url || ""),
+      img_url: useField(QRCode?.img_url || img_url_ipt),
     },
     onSubmit,
   });
@@ -314,10 +315,9 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
     [],
   );
 
-const [img_url_ipt, setImageUrl] = useState("");
+[img_url_ipt, setImageUrl] = useState("");
   const uploadCallback = useCallback((url) => {
     console.log("url: " + url);
-    img_url = url;
     setImageUrl(url);
   });
 

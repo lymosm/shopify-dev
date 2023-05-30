@@ -314,7 +314,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
     },
     [],
   );
-
+var setImageUrl;
 [img_url_ipt, setImageUrl] = useState("");
   const uploadCallback = useCallback((url) => {
     console.log("url: " + url);

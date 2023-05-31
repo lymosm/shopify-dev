@@ -71,6 +71,10 @@ export function genSnippet(){
   return '<iframe class="xt-snippet-frame" height="300" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"></iframe>';
 }
 
+export function getSnippetType(){
+
+}
+
 export async function getShopUrlFromSession(req, res) {
   return `https://${res.locals.shopify.session.shop}`;
 }
@@ -96,6 +100,7 @@ export async function parseQrCodeBody(req, res) {
     snippet: genSnippet(),
     img_url: req.body.img_url,
     img_link: req.body.img_link,
+    type: getSnippetType(),
     code: guid_str,
     destination: "",
   };

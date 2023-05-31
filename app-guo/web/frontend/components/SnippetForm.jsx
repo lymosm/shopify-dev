@@ -150,7 +150,8 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       discountCode,
       destination,
       img_link,
-      img_url
+      img_url,
+      type,
     },
     dirty,
     reset,
@@ -178,6 +179,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       discountCode: useField(QRCode?.discountCode || ""),
       img_link: useField(QRCode?.img_link || ""),
       img_url: useField(QRCode?.img_url || ""),
+      type: useField(QRCode?.type || 1),
     },
     onSubmit,
   });
@@ -285,11 +287,13 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
        // show_product = "none";
        setImageShow("block");
        setProdcutShow("none");
+       type.onChange(2);
       }else{
        // show_image = "none";
        // show_product = "block";
        setImageShow("none");
        setProdcutShow("block");
+       type.onChange(1);
       }
     }
   );
@@ -393,14 +397,14 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                 helpText=""
                 checked={value === 'product_radio'}
                 id="product_radio"
-                name="accounts"
+                name="type"
                 onChange={handleChange}
               />
               <RadioButton
                 label="Image"
                 helpText=""
                 id="image_radio"
-                name="accounts"
+                name="type"
                 checked={value === 'image_radio'}
                 onChange={handleChange}
               />

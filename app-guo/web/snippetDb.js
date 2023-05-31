@@ -242,6 +242,7 @@ export const SnippetDb = {
   __query: function (sql, params = []) {
     return new Promise((resolve, reject) => {
       this.db.all(sql, params, (err, result) => {
+        console.log(sql);
         if (err) {
           reject(err);
           return;

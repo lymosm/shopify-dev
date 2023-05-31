@@ -108,6 +108,12 @@ export async function formatQrCodeResponse(req, res, rawCodeData) {
   const ids = [];
   console.log("tttt");
 console.log(rawCodeData);
+if(typeof rawCodeData[0] != "undefined"){
+  if(rawCodeData[0].productId == "" || ! rawCodeData[0].productId){
+    return true;
+  }
+}
+
   /* Get every product, variant and discountID that was queried from the database */
   rawCodeData.forEach(({ productId, discountId, variantId }) => {
     ids.push(productId);

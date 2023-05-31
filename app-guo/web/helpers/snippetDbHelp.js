@@ -109,7 +109,7 @@ export async function formatQrCodeResponse(req, res, rawCodeData) {
   
 if(typeof rawCodeData[0] != "undefined"){
   if(rawCodeData[0].productId == "" || ! rawCodeData[0].productId){
-    return true;
+    return rawCodeData;
   }
 }
 
@@ -175,11 +175,8 @@ if(typeof rawCodeData[0] != "undefined"){
 
     /* Since product.id already exists, productId isn't required */
     delete formattedQRCode.productId;
-    console.log("ooooo");
-    console.log(formattedQRCode);
     return formattedQRCode;
   });
-  console.log("tttt");
-  console.log(formattedData);
+  
   return formattedData;
 }

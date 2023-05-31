@@ -94,7 +94,7 @@ export function SnippetList({ QRCodes, loading }) {
 
   const rowMarkup = QRCodes.map(
     ({ id, title, product, snippet, scans, createdAt }, index) => {
-      const deletedProduct = product.title.includes("Deleted product");
+    //  const deletedProduct = product.title.includes("Deleted product");
 
       /* The form layout, created using Polaris components. Includes the QR code data set above. */
       return (

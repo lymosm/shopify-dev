@@ -106,8 +106,7 @@ export async function parseQrCodeBody(req, res) {
 */
 export async function formatQrCodeResponse(req, res, rawCodeData) {
   const ids = [];
-  console.log("tttt");
-console.log(rawCodeData);
+  
 if(typeof rawCodeData[0] != "undefined"){
   if(rawCodeData[0].productId == "" || ! rawCodeData[0].productId){
     return true;
@@ -123,7 +122,6 @@ if(typeof rawCodeData[0] != "undefined"){
       ids.push(discountId);
     }
   });
-  console.log(res.locals);
   /* Instantiate a new GraphQL client to query the Shopify GraphQL Admin API */
   const client = new shopify.api.clients.Graphql({
     session: res.locals.shopify.session,
@@ -177,9 +175,11 @@ if(typeof rawCodeData[0] != "undefined"){
 
     /* Since product.id already exists, productId isn't required */
     delete formattedQRCode.productId;
-
+    console.log("ooooo");
+    console.log(formattedQRCode);
     return formattedQRCode;
   });
-
+  console.log("tttt");
+  console.log(formattedData);
   return formattedData;
 }

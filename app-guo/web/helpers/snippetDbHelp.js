@@ -106,7 +106,8 @@ export async function parseQrCodeBody(req, res) {
 */
 export async function formatQrCodeResponse(req, res, rawCodeData) {
   const ids = [];
-
+  console.log("tttt");
+console.log(rawCodeData);
   /* Get every product, variant and discountID that was queried from the database */
   rawCodeData.forEach(({ productId, discountId, variantId }) => {
     ids.push(productId);

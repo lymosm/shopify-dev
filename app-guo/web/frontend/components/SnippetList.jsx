@@ -1,5 +1,5 @@
 import { useNavigate } from "@shopify/app-bridge-react";
-import {copy} from "copy-to-clipboard";
+import copy from "copy-to-clipboard";
 import {
   Card,
   Icon,
@@ -9,11 +9,14 @@ import {
   TextStyle,
   Thumbnail,
   UnstyledLink,
+  Frame,
+  Toast
 } from "@shopify/polaris";
 import { DiamondAlertMajor, ImageMajor } from "@shopify/polaris-icons";
 
 /* useMedia is used to support multiple screen sizes */
 import { useMedia } from "@shopify/react-hooks";
+import {useState, useCallback} from 'react';
 
 /* dayjs is used to capture and format the date a QR code was created or modified */
 import dayjs from "dayjs";
@@ -74,12 +77,24 @@ function SmallScreenCard({
 export function SnippetList({ QRCodes, loading }) {
   const navigate = useNavigate();
 
+  const [active, setActive] = useState(false);
+
+  const toggleActive = useCallback((sta) => setActive(sta), []);
+
+  const toastMarkup = active ? (
+    <Toast content="copied" onDismiss={toggleActive} />
+  ) : null;
+
   /* Check if screen is small */
   const isSmallScreen = useMedia("(max-width: 640px)");
 
   var copyTo =  function(txt){
     copy(txt);
-    Toast("copied", "", false);
+    // Toast("copied", "", false);
+    toggleActive(true);
+    setTimeout(function(){
+      toggleActive(false);
+    }, 2000);
   }
 
   /* Map over QRCodes for small screen */
@@ -93,7 +108,7 @@ export function SnippetList({ QRCodes, loading }) {
   };
 
   const rowMarkup = QRCodes.map(
-    ({ id, title, product, snippet, scans, createdAt }, index) => {
+    ({ id, title, product, snippet, scans, createdAt, type }, index) => {
     //  const deletedProduct = product.title.includes("Deleted product");
 
       /* The form layout, created using Polaris components. Includes the QR code data set above. */
@@ -110,6 +125,10 @@ export function SnippetList({ QRCodes, loading }) {
           <IndexTable.Cell>
   
               {truncate(title, 25)}
+          </IndexTable.Cell>
+          <IndexTable.Cell>
+  
+              {type == 2 ? "Image" : "Product"}
           </IndexTable.Cell>
           <IndexTable.Cell>
               <Button onClick={() => copyTo(snippet)}>Copy Snippet</Button>            
@@ -138,6 +157,7 @@ export function SnippetList({ QRCodes, loading }) {
           headings={[
             { title: "ID"},
             { title: "Title" },
+            { title: "Type" },
             { title: "Snippet" },
 
             { title: "Date created" },
@@ -149,7 +169,11 @@ export function SnippetList({ QRCodes, loading }) {
           {rowMarkup}
         </IndexTable>
       )}
+      <Frame>
+      {toastMarkup}
+    </Frame>
     </Card>
+    
   );
 }
 

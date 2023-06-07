@@ -64,11 +64,11 @@ export function getSessionId(res){
   return res.locals.shopify.session.id;
 }
 
-export function genSnippet(){
+export function genSnippet(body){
   if(guid_str == ""){
     guid();
   }
-  return '<iframe class="xt-snippet-frame" height="300" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"></iframe>';
+  return '<iframe class="xt-snippet-frame" id="' + guid_str + '" width="100%" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"></iframe>';
 }
 
 export function getSnippetType(){
@@ -97,11 +97,14 @@ export async function parseQrCodeBody(req, res) {
     variantId: req.body.variantId,
     handle: req.body.handle,
     session_id: getSessionId(res),
-    snippet: genSnippet(),
+    snippet: genSnippet(req.body),
     img_url: req.body.img_url,
     img_link: req.body.img_link,
-    type: getSnippetType(),
+    type: req.body.type,
     code: guid_str,
+    frame_height: req.body.frame_height,
+    m_frame_height: req.body.m_frame_height,
+    frame_id: guid_str,
     destination: "",
   };
 }
@@ -120,6 +123,9 @@ if(typeof rawCodeData[0] != "undefined"){
 
   /* Get every product, variant and discountID that was queried from the database */
   rawCodeData.forEach(({ productId, discountId, variantId }) => {
+    if(productId == "" || ! productId){
+      return ;
+    }
     ids.push(productId);
     ids.push(variantId);
 

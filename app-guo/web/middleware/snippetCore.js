@@ -98,15 +98,17 @@ export function SnippetCore() {
 
         html += `
           <div class="xt-product-box">
-          <div class="xt-product-img">
-            <img src="${pp.featuredImage.url}">
-          </div>
-          <div class="xt-product-title">
-            <h2>${pp.title}</h2>
-          </div>
-          <div class="xt-product-action">
-            <a class="xt-btn" target="_top" href="${url}">Shop now</a>
-          </div>
+            <div class="xt-product-img">
+              <img src="${pp.featuredImage.url}">
+            </div>
+            <div class="xt-product-right">
+              <div class="xt-product-title">
+                <h2>${pp.title}</h2>
+              </div>
+              <div class="xt-product-action">
+                <a class="xt-btn" target="_top" href="${url}">Shop now</a>
+              </div>
+            </div>
         </div>`;
       }else{
         html += `
@@ -137,6 +139,13 @@ html += `
         min-width: 180px;
         padding-bottom: 20px;
         border: 1px solid #ccc;
+        display: flex;
+    }
+    .xt-product-img{
+      width: 40%;
+    }
+    .xt-product-right{
+      width: 60%;
     }
     .xt-product-img img{
         width: 100%;

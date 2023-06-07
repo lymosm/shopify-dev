@@ -26,13 +26,16 @@ export const SnippetDb = {
     type,
     snippet,
     code,
+    frame_height,
+    m_frame_height,
+    frame_id,
     destination,
   }) {
     await this.ready;
     const query = `
       INSERT INTO ${this.qrCodesTableName}
-      (shopDomain, title, productId, variantId, handle, session_id, img_url, img_link, type, snippet, code, destination, scans)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+      (shopDomain, title, productId, variantId, handle, session_id, img_url, img_link, type, snippet, code, frame_height, m_frame_height, frame_id, destination, scans)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
       RETURNING id;
     `;
 
@@ -43,11 +46,14 @@ export const SnippetDb = {
       variantId,
       handle,
       session_id,
-      img_url, 
+      img_url,
       img_link,
       type,
       snippet,
       code,
+      frame_height,
+      m_frame_height,
+      frame_id,
       destination,
     ]);
 
@@ -65,6 +71,8 @@ export const SnippetDb = {
       img_url,
       img_link,
       type,
+      frame_height,
+      m_frame_height,
       destination,
     }
   ) {
@@ -81,6 +89,8 @@ export const SnippetDb = {
         img_url = ?,
         img_link = ?,
         type = ?,
+        frame_height = ?,
+        m_frame_height = ?,
         destination = ?
       WHERE
         id = ?;
@@ -95,6 +105,8 @@ export const SnippetDb = {
       img_url,
       img_link,
       type,
+      frame_height,
+      m_frame_height,
       destination,
       id,
     ]);
@@ -109,7 +121,6 @@ export const SnippetDb = {
     `;
 
     const results = await this.__query(query, [shopDomain]);
-
     return results.map((qrcode) => this.__addImageUrl(qrcode));
   },
 
@@ -225,6 +236,9 @@ export const SnippetDb = {
           img_link VARCHAR(500) NOT NULL default "",
           snippet VARCHAR(500) NOT NULL,
           code VARCHAR(500) NOT NULL,
+          frame_height VARCHAR(25) NOT NULL default "",
+          m_frame_height VARCHAR(25) NOT NULL default "",
+          frame_id VARCHAR(60) NOT NULL default "",
           type integer default 1,
           destination VARCHAR(255) NOT NULL default "",
           scans INTEGER,

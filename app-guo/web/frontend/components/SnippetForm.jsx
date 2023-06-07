@@ -151,6 +151,8 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       destination,
       img_link,
       img_url,
+      frame_height,
+      m_frame_height,
       type,
     },
     dirty,
@@ -179,6 +181,8 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       discountCode: useField(QRCode?.discountCode || ""),
       img_link: useField(QRCode?.img_link || ""),
       img_url: useField(QRCode?.img_url || ""),
+      frame_height: useField(QRCode?.frame_height || 400),
+      m_frame_height: useField(QRCode?.m_frame_height || 600),
       type: useField(QRCode?.type || 1),
     },
     onSubmit,
@@ -415,6 +419,18 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                   label="Title"
                   labelHidden
                   helpText="a title you can remember"
+                />
+                <TextField
+                  {...frame_height}
+                  label="Frame Height"
+                  labelHidden
+                  helpText="a frame height in PC"
+                />
+                <TextField
+                  {...m_frame_height}
+                  label="Mobile Frame Height"
+                  labelHidden
+                  helpText="a frame height in mobile"
                 />
               </Card>
 

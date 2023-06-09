@@ -63,6 +63,9 @@ export function SnippetCore() {
         return "";
       }
       const data = await SnippetDb.getByCode(code);
+      if(data == null || typeof data == "undefined"){
+        return '404 Not Found';
+      }
       const product_id = data.productId;
       const session_id = data.session_id;
       const type = data.type;
@@ -134,9 +137,6 @@ html += `
         width: 100%;
       }
       .xt-product-box{
-        width: 25%;
-        max-width: 180px;
-        min-width: 180px;
         padding-bottom: 20px;
         border: 1px solid #ccc;
         display: flex;
@@ -161,9 +161,9 @@ html += `
     .xt-btn{
         text-decoration: none;
         color: #fff;
-        background-color: blue;
-        border-radius: 10px;
-        padding: 4px 10px;
+        background-color: #7635f3;
+        border-radius: 4px;
+        padding: 10px 60px;
     }
     </style>
       `;

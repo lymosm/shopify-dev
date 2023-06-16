@@ -67,6 +67,7 @@ export function SnippetCore() {
         return '404 Not Found';
       }
       const product_id = data.productId;
+      const variant_id = data.variantId;
       const session_id = data.session_id;
       const type = data.type;
 
@@ -97,8 +98,20 @@ export function SnippetCore() {
         });
         const pp = product_data.body.data.product;
         var url = pp.onlineStoreUrl ?? pp.onlineStorePreviewUrl;
-        console.log(pp);
 
+        const variant_data = await client.query({
+          data: `query {
+            productVariant(id: "${variant_id}") {
+              title
+              displayName
+              createdAt
+              price
+            }
+          }`,
+        });
+
+        console.log(variant_data);
+        
         html += `
           <div class="xt-product-box">
             <div class="xt-product-img">
@@ -107,6 +120,9 @@ export function SnippetCore() {
             <div class="xt-product-right">
               <div class="xt-product-title">
                 <h2>${pp.title}</h2>
+              </div>
+              <div class="xt-product-price">
+                ${pp.title}
               </div>
               <div class="xt-product-action">
                 <a class="xt-btn" target="_top" href="${url}">Shop now</a>
@@ -117,7 +133,7 @@ export function SnippetCore() {
         html += `
           <div class="xt-image-box">
             <a href="${data.img_link}">
-              <img src="${data.img_url}">
+              <img src="/images${data.img_url}">
             </a>
           </div>
         `;
@@ -138,7 +154,6 @@ html += `
       }
       .xt-product-box{
         padding-bottom: 20px;
-        border: 1px solid #ccc;
         display: flex;
     }
     .xt-product-img{

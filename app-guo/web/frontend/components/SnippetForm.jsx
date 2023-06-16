@@ -503,13 +503,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                   <ButtonAnt icon={<UploadOutlined />}>Click to Upload</ButtonAnt>
                 </Upload>
                 <input type="hidden" name="img_url" value={{img_url}}></input>
-                <TextField
-                  {...img_url}
-                  label="Image Url"
-                  placeholder="Image Url"
-                  labelHidden
-                  helpText=""
-                />
+                
                 <br/>
                 <TextField
                   {...img_link}

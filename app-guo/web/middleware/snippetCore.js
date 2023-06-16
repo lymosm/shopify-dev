@@ -58,7 +58,6 @@ export function SnippetCore() {
     dealSnippet: async function(req, res){
       
       const code = req.url.match(/snippet\/(\S*)/)[1];
-      console.log(code);
       if(! code || code == null){
         return "";
       }
@@ -79,7 +78,6 @@ export function SnippetCore() {
         const session_obj = {
           session: session
         };
-        console.log(session_obj);
       // const client = new shopify.api.clients.Graphql(res.locals.shopify.session);
         const client = new shopify.api.clients.Graphql(session_obj);
         const product_data = await client.query({
@@ -110,7 +108,6 @@ export function SnippetCore() {
           }`,
         });
         const vv = variant_data.body.data.productVariant;
-        console.log(vv);
 
         html += `
           <div class="xt-product-box">
@@ -146,9 +143,10 @@ html += `
         position: relative;
       }
       .xt-product-price{
-        color: ##f04057;
+        color: #f04057;
         padding-top: 10px;
         padding-bottom: 30px;
+        font-weight: bold;
       }
       .xt-image-box{
         width: 100%;

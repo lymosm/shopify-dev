@@ -68,8 +68,8 @@ export function genSnippet(body){
   if(guid_str == ""){
     guid();
   }
-  var html = '<iframe class="xt-snippet-frame" id="' + guid_str + '" width="100%" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"></iframe>';
-  html += '<style> #' + guid_str + '{ height: ' + body.frame_height + 'px; } @media screen and(max-width: 768px){ #' + guid_str + '{ height: ' + body.m_frame_height + 'px; } } </style>';
+  var html = '<iframe class="xt-snippet-frame" id="a-' + guid_str + '" width="100%" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"></iframe>';
+  html += '<style> #a-' + guid_str + '{ height: ' + body.frame_height + 'px; } @media screen and(max-width: 768px){ #a-' + guid_str + '{ height: ' + body.m_frame_height + 'px; } } </style>';
   return html;
 }
 

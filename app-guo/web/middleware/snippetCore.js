@@ -109,9 +109,9 @@ export function SnippetCore() {
             }
           }`,
         });
+        const vv = variant_data.body.data.productVariant;
+        console.log(vv);
 
-        console.log(variant_data);
-        
         html += `
           <div class="xt-product-box">
             <div class="xt-product-img">
@@ -122,7 +122,7 @@ export function SnippetCore() {
                 <h2>${pp.title}</h2>
               </div>
               <div class="xt-product-price">
-                ${pp.title}
+                $${vv.price}
               </div>
               <div class="xt-product-action">
                 <a class="xt-btn" target="_top" href="${url}">Shop now</a>
@@ -145,6 +145,11 @@ html += `
         box-sizing: border-box;
         position: relative;
       }
+      .xt-product-price{
+        color: ##f04057;
+        padding-top: 10px;
+        padding-bottom: 30px;
+      }
       .xt-image-box{
         width: 100%;
         height: 100vh;
@@ -161,15 +166,16 @@ html += `
     }
     .xt-product-right{
       width: 60%;
+      padding-left: 20px;
     }
     .xt-product-img img{
         width: 100%;
     }
     .xt-product-action{
-        text-align: center;
+        text-align: left;
     }
     .xt-product-title{
-        text-align: center;
+        text-align: left;
         color: #000;
         font-weight: bold;
     }

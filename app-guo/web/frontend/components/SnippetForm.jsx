@@ -236,8 +236,21 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
 
     It will be replaced by a different function when the frontend is connected to the backend.
   */
-  const isDeleting = false;
-  const deleteQRCode = () => console.log("delete");
+    const [isDeleting, setIsDeleting] = useState(false);
+    const deleteQRCode = useCallback(async () => {
+      reset();
+      /* The isDeleting state disables the download button and the delete QR code button to show the user that an action is in progress */
+      setIsDeleting(true);
+      const response = await fetch(`/api/qrcodes/${QRCode.id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+    
+      if (response.ok) {
+        navigate(`/`);
+      }
+    }, [QRCode]);
+    
 
   /*
     This function runs when a user clicks the "Go to destination" button.
@@ -271,7 +284,20 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
   const isLoadingDiscounts = true;
   const discountOptions = [NO_DISCOUNT_OPTION];
 
-  const [value, setValue] = useState('product_radio');
+  const type_radio = (typeof QRCode != "undefined" && QRCode != null && typeof QRCode.type != "undefined" && QRCode.type == 2) ? "image_radio" : "product_radio";
+  const [value, setValue] = useState(type_radio);
+
+  let product_init_val = "block";
+  let image_init_val = "none"; 
+
+  if(type_radio == "image_radio"){
+    image_init_val = "block";
+    product_init_val = "none";
+   }else{
+    image_init_val = "none";
+    product_init_val = "block";
+   }
+  
 
   /*
   const handleChange = useCallback(
@@ -281,8 +307,8 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
   */
  // var show_product = "block";
  //  var  show_image = "none";
- const [show_product, setProdcutShow] = useState("block");
- const [show_image, setImageShow] = useState("none");
+ const [show_product, setProdcutShow] = useState(product_init_val);
+ const [show_image, setImageShow] = useState(image_init_val);
   const handleChange = useCallback(
     (a, val) => {
       setValue(val);
@@ -301,6 +327,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
       }
     }
   );
+
 
   /*
     These variables are used to display product images, and will be populated when image URLs can be retrieved from the Admin.

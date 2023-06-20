@@ -120,7 +120,7 @@ export function SnippetList({ QRCodes, loading }) {
         >
           <IndexTable.Cell>
             
-              {truncate(title, 25)}
+              {truncate(id, 25)}
           </IndexTable.Cell>
           <IndexTable.Cell>
   

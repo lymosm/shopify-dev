@@ -53,7 +53,15 @@ export async function getQrCodeOr404(req, res, checkDomain = true) {
   return undefined;
 }
 
-export function guid() { 
+export async function guid  (req) { 
+
+  if(typeof req.params.id != "undefined" && req.params.id){
+    const old = await SnippetDb.read(req.params.id);
+    if(typeof old.code != "undefined" && old.code){
+      guid_str = old.code;
+      return guid_str;
+    }
+  }
   guid_str = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) { 
       var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8); 
       return v.toString(16); 
@@ -64,10 +72,13 @@ export function getSessionId(res){
   return res.locals.shopify.session.id;
 }
 
-export function genSnippet(body){
+export function genSnippet(req){
+  const body = req.body;
   if(guid_str == ""){
-    guid();
+    guid(req);
   }
+  console.log("88888");
+      console.log(guid_str);
   var html = '<iframe class="xt-snippet-frame" id="a-' + guid_str + '" width="100%" frameborder="0" scrolling="no" src="https://app.xtoool.com/snippet/' + guid_str + '"></iframe>';
   html += '<style> #a-' + guid_str + '{ height: ' + body.frame_height + 'px; } @media screen and(max-width: 768px){ #a-' + guid_str + '{ height: ' + body.m_frame_height + 'px; } } </style>';
   return html;
@@ -92,14 +103,14 @@ discountCode: string
 destination: string
 */
 export async function parseQrCodeBody(req, res) {
-  guid();
+  await guid(req);
   return {
     title: req.body.title,
     productId: req.body.productId,
     variantId: req.body.variantId,
     handle: req.body.handle,
     session_id: getSessionId(res),
-    snippet: genSnippet(req.body),
+    snippet: genSnippet(req),
     img_url: req.body.img_url,
     img_link: req.body.img_link,
     type: req.body.type,

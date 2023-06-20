@@ -73,6 +73,7 @@ export const SnippetDb = {
       type,
       frame_height,
       m_frame_height,
+      snippet,
       destination,
     }
   ) {
@@ -91,6 +92,7 @@ export const SnippetDb = {
         type = ?,
         frame_height = ?,
         m_frame_height = ?,
+        snippet = ?,
         destination = ?
       WHERE
         id = ?;
@@ -107,6 +109,7 @@ export const SnippetDb = {
       type,
       frame_height,
       m_frame_height,
+      snippet,
       destination,
       id,
     ]);
@@ -117,7 +120,7 @@ export const SnippetDb = {
     await this.ready;
     const query = `
       SELECT * FROM ${this.qrCodesTableName}
-      WHERE shopDomain = ?;
+      WHERE shopDomain = ? order by id desc;
     `;
 
     const results = await this.__query(query, [shopDomain]);

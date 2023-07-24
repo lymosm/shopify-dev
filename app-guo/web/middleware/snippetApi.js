@@ -148,7 +148,7 @@ app.post("/snippetaaa/*", async (req, res) => {
     };
     
     var dir = resolve(__dirname, "..") + "/"
-    const path = dir + req.url.replace("/images/", ""); 
+    const path = dir + decodeURIComponent(req.url.replace("/images/", "")); 
     readFile(path, (err, data) => {
       if(err){
         res.statusCode = 404;

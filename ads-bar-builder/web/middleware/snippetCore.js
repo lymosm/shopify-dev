@@ -56,6 +56,27 @@ const DISCOUNTS_QUERY = `
 export function SnippetCore() {
   const obj = {
     dealSnippet: async function(req, res){
+
+      var trim_text = function sliceEnglish(text,len) {
+
+        if(text.length < len) {
+            return text;
+        } 
+        else {
+            text = text.substr(0,len);
+            var textArr = text.split(" ");
+            var lastLen = textArr.pop().length;
+            if(lastLen > 3) {
+                return text.substr(0,text.length-lastLen-1)+' ...';
+            } else if(lastLen === 3 ){
+                return text;
+            }else{
+                var lastTwoLen =  textArr[textArr.length - 1].length;
+                return text.substr(0,text.length-lastLen-lastTwoLen-2)+' ...';
+            }
+        }
+    };
+
       
       const code = req.url.match(/snippet\/(\S*)/)[1];
       if(! code || code == null){
@@ -108,6 +129,7 @@ export function SnippetCore() {
           }`,
         });
         const vv = variant_data.body.data.productVariant;
+        pp.title = trim_text(pp.title);
 
         html += `
           <div class="xt-product-box">

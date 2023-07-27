@@ -535,7 +535,7 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                 <TextField
                   {...img_link}
                   label="Image Link"
-                  placeholder="Image Link"
+                  placeholder="Image Link(https://)"
                   labelHidden
                   helpText=""
                 />

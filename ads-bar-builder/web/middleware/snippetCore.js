@@ -57,25 +57,19 @@ export function SnippetCore() {
   const obj = {
     dealSnippet: async function(req, res){
 
-      var trim_text = function sliceEnglish(text,len) {
-
-        if(text.length < len) {
-            return text;
-        } 
-        else {
-            text = text.substr(0,len);
-            var textArr = text.split(" ");
-            var lastLen = textArr.pop().length;
-            if(lastLen > 3) {
-                return text.substr(0,text.length-lastLen-1)+' ...';
-            } else if(lastLen === 3 ){
-                return text;
-            }else{
-                var lastTwoLen =  textArr[textArr.length - 1].length;
-                return text.substr(0,text.length-lastLen-lastTwoLen-2)+' ...';
-            }
-        }
-    };
+      var trim_text = function(text, len){
+        const text_arr = text.split(" ");
+						const str_len = text_arr.length;
+						if(len >= str_len){
+							return text;
+						}
+						let new_arr = [];
+						for(let i = 0; i < len; i++){
+							new_arr.push(text_arr[i]);
+						}
+						return new_arr.join(" ") + "...";
+      }
+    
 
       
       const code = req.url.match(/snippet\/(\S*)/)[1];
@@ -151,7 +145,7 @@ export function SnippetCore() {
       }else{
         html += `
           <div class="xt-image-box">
-            <a href="${data.img_link}">
+            <a target="_blank" href="${data.img_link}">
               <img src="/images${data.img_url}">
             </a>
           </div>

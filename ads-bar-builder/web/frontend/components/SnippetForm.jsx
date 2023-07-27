@@ -7,6 +7,7 @@ import {
   Form,
   FormLayout,
   TextField,
+  Text,
   Button,
   ChoiceList,
   Select,
@@ -459,6 +460,9 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
                   labelHidden
                   helpText="a frame height in mobile"
                 />
+                <Text as="p" color="critical">
+                Please set the height carefully, and you have to replace the latest snippet to the position of the ads bar of the page after each change.
+                </Text>
               </Card>
 
               

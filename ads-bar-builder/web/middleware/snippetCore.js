@@ -123,7 +123,7 @@ export function SnippetCore() {
           }`,
         });
         const vv = variant_data.body.data.productVariant;
-        pp.title = trim_text(pp.title);
+        pp.title = trim_text(pp.title, 12);
 
         html += `
           <div class="xt-product-box">

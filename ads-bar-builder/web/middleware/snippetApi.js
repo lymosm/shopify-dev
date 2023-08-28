@@ -166,15 +166,15 @@ app.post("/snippetaaa/*", async (req, res) => {
     });
   });
 
-  app.post("/api/data-request", async (req, res) => {
+  app.post("/apis/data-request", async (req, res) => {
       const ret = {status: true};
       res.status(200).send(ret);
   });
-  app.post("/api/customers-redact", async (req, res) => {
+  app.post("/apis/customers-redact", async (req, res) => {
     const ret = {status: true};
     res.status(200).send(ret);
   });
-  app.post("/api/shop-redact", async (req, res) => {
+  app.post("/apis/shop-redact", async (req, res) => {
     const ret = {status: true};
     res.status(200).send(ret);
   });

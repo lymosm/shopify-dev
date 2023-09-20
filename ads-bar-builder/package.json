@@ -17,6 +17,7 @@
     "@shopify/react-form": "^2.5.4",
     "antd": "^5.5.0",
     "copy-to-clipboard": "^3.3.3",
+    "crypto": "^1.0.1",
     "dayjs": "^1.11.7",
     "formidable": "^3.2.5",
     "sqlite3": "^5.1.6"

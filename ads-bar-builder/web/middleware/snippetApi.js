@@ -9,6 +9,7 @@
 import express from "express";
 
 import shopify from "../snippetShopify.js"; 
+import crypto from "crypto";
 import { SnippetDb } from "../snippetDb.js";
 import { SnippetCore } from "./snippetCore.js";
 import { rename, existsSync, mkdir, readFile } from "fs";
@@ -168,14 +169,50 @@ app.post("/snippetaaa/*", async (req, res) => {
 
   app.post("/apis/data-request", async (req, res) => {
       const ret = {status: true};
+      const hmac = req.headers["x-shopify-hmac-sha256"];
+
+      const genHash = crypto
+      .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
+      .update(req.body, "utf8", "hex")
+      .digest("base64");
+
+      console.log(hmac + "===" + genHash);
+
+      if (genHash !== hmac) {
+          return res.status(401).send("Couldn't verify incoming Webhook request!");
+      }
       res.status(200).send(ret);
   });
   app.post("/apis/customers-redact", async (req, res) => {
     const ret = {status: true};
+    const hmac = req.headers["x-shopify-hmac-sha256"];
+
+      const genHash = crypto
+      .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
+      .update(req.body, "utf8", "hex")
+      .digest("base64");
+
+      console.log(hmac + "===" + genHash);
+
+      if (genHash !== hmac) {
+          return res.status(401).send("Couldn't verify incoming Webhook request!");
+      }
     res.status(200).send(ret);
   });
   app.post("/apis/shop-redact", async (req, res) => {
     const ret = {status: true};
+    const hmac = req.headers["x-shopify-hmac-sha256"];
+
+      const genHash = crypto
+      .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
+      .update(req.body, "utf8", "hex")
+      .digest("base64");
+
+      console.log(hmac + "===" + genHash);
+
+      if (genHash !== hmac) {
+          return res.status(401).send("Couldn't verify incoming Webhook request!");
+      }
     res.status(200).send(ret);
   });
 

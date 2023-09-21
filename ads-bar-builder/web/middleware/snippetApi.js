@@ -205,10 +205,15 @@ app.post("/snippetaaa/*", async (req, res) => {
 
       const genHash = crypto
       .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
-      .update(String(req.body), "utf8", "hex")
+      // .update(String(req.body), "utf8", "hex")
+      .update(JSON.stringify(req.body), "utf8", "hex")
       .digest("base64");
 
-      console.log(req);
+      // .update(Buffer.from(req.body))
+      // .update(JSON.stringify(req.body))
+      // .update(req.body.toString())
+
+      // console.log(req);
       console.log(req.body);
       console.log(String(req.body));
       console.log(hmac + "===" + genHash);

@@ -208,6 +208,8 @@ app.post("/snippetaaa/*", async (req, res) => {
       .update(String(req.body), "utf8", "hex")
       .digest("base64");
 
+      console.log(req.body);
+      console.log(String(req.body));
       console.log(hmac + "===" + genHash);
 
       if (genHash !== hmac) {

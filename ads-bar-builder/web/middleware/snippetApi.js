@@ -173,7 +173,8 @@ app.post("/snippetaaa/*", async (req, res) => {
 
       const genHash = crypto
       .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
-      .update(String(req.body), "utf8", "hex")
+      // .update(String(req.body), "utf8", "hex")
+      .update(JSON.stringify(req.body), "utf8", "hex")
       .digest("base64");
 
       console.log(hmac + "===" + genHash);
@@ -189,7 +190,8 @@ app.post("/snippetaaa/*", async (req, res) => {
 
       const genHash = crypto
       .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
-      .update(String(req.body), "utf8", "hex")
+      // .update(String(req.body), "utf8", "hex")
+      .update(JSON.stringify(req.body), "utf8", "hex")
       .digest("base64");
 
       console.log(hmac + "===" + genHash);

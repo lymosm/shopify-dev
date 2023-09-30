@@ -6,6 +6,6 @@ export const billingConfig = {
     amount: 3.99,
     currencyCode: "USD",
     interval: BillingInterval.Usage,
-    // usageTerms: "One dollar per button click",
+    usageTerms: "One dollar per button click",
   },
 };

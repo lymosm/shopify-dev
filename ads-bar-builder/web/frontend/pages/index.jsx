@@ -19,7 +19,7 @@ import shopify from "../../snippetShopify.js";
 import { MyList, ProductsCard, SnippetList} from "../components";
 import { useAppQuery } from "../hooks";
 import { useCallback } from "react";
-import { billingConfig } from "../../billing.js";
+// import { billingConfig } from "../../billing.js";
 
 
 export default function HomePage() {
@@ -101,6 +101,7 @@ if(typeof list1 != "undefined"){
 }
 
 const checkPlan = useCallback( async () => {
+	/*
 	const plans = Object.keys(billingConfig);
     const session = shopify.session;
 	console.log(session);
@@ -111,6 +112,8 @@ const checkPlan = useCallback( async () => {
     });
 
 	console.log(hasPayment);
+	*/
+	alert(999);
 
 }, []);
 

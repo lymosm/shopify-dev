@@ -185,7 +185,7 @@ const addSubscription = useCallback(async () => {
       <Layout>
         <Layout.Section>
         <Button onClick={() => { addSubscription(); }}>Add Plan</Button>
-		<Button onClick={() => { checkPlan(); }}>Check Plan</Button>
+
         {myListHtml}
         {emptyStateMarkup}
         </Layout.Section>

@@ -29,7 +29,7 @@ app.get(shopify.config.auth.path, shopify.auth.begin());
 app.get(
   shopify.config.auth.callbackPath,
   shopify.auth.callback(),
-  
+  /*
   async (req, res, next) => {
     const plans = Object.keys(billingConfig);
     const session = res.locals.shopify.session;
@@ -52,7 +52,7 @@ app.get(
       );
     }
   },
-  
+  */
   shopify.redirectToShopifyOrAppRoot()
 
 );

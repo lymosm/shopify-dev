@@ -30,6 +30,10 @@ import {
   formatQrCodeResponse,
 } from "../helpers/snippetDbHelp.js";
 
+
+const billing_test = true;
+
+
 const DISCOUNTS_QUERY = `
   query discounts($first: Int!) {
     codeDiscountNodes(first: $first) {
@@ -108,6 +112,39 @@ app.post("/snippetaaa/*", async (req, res) => {
 });
 
 
+app.post("/api/checkplan", async (req, res) => {
+  console.log("checkplan");
+  try {
+
+    const plans = Object.keys(billingConfig);
+    const session = res.locals.shopify.session;
+
+    const hasPayment = await shopify.api.billing.check({
+      session,
+      plans: plans,
+      isTest: billing_test,
+    });
+
+    const charge_url = 
+        await shopify.api.billing.request({
+          session,
+          plan: plans[0],
+          isTest: billing_test,
+        });
+
+    const ret = {
+      paid: hasPayment,
+      url: charge_url
+    };
+    
+    return res.status(200).send(ret);
+  }catch (error) {
+    res.status(500).send(error.message);
+  }
+  
+});
+
+
 
   app.post("/api/qrcodes", async (req, res) => {
     try {
@@ -119,7 +156,7 @@ app.post("/snippetaaa/*", async (req, res) => {
     const hasPayment = await shopify.api.billing.check({
       session,
       plans: plans,
-      isTest: true,
+      isTest: billing_test,
     });
 
     if(! hasPayment){
@@ -127,12 +164,12 @@ app.post("/snippetaaa/*", async (req, res) => {
         await shopify.api.billing.request({
           session,
           plan: plans[0],
-          isTest: true,
+          isTest: billing_test,
         });
         return res.status(200).send({url: charge_url});
     
     }
-    
+
       const id = await SnippetDb.create({
         ...(await parseQrCodeBody(req, res)),
 
@@ -318,7 +355,7 @@ app.post("/snippetaaa/*", async (req, res) => {
     const hasPayment = await shopify.api.billing.check({
       session,
       plans: plans,
-      isTest: true,
+      isTest: billing_test,
     });
 
     if(! hasPayment){
@@ -326,7 +363,7 @@ app.post("/snippetaaa/*", async (req, res) => {
         await shopify.api.billing.request({
           session,
           plan: plans[0],
-          isTest: true,
+          isTest: billing_test,
         });
         return res.status(200).send({url: charge_url});
     

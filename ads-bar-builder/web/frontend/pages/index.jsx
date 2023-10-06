@@ -96,6 +96,13 @@ var myListHtml = "";
 if(typeof list1 != "undefined"){
   myListHtml = (<SnippetList QRCodes={list1} loading={false} />);
 }
+
+const div1 = {
+  marginTop: "20px"
+};
+const goTo = function(){
+  navigate("/mypages/plan");
+};
   
   return (
     <Page fullWidth>
@@ -106,7 +113,8 @@ if(typeof list1 != "undefined"){
           onAction: () => navigate("/mypages/add_snippet"),
         }}
       />
-      
+      <Button submit="false" onClick={ goTo }>My Subscription</Button>
+      <div style={div1}></div>
       <Layout>
         <Layout.Section>
         {myListHtml}

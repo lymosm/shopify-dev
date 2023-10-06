@@ -17,6 +17,7 @@ import { formidable } from "formidable";
 import { resolve } from "path";
 // const formidable = require('formidable');
 // import { path } from "path";
+import { billingConfig } from "../billing.js";
 import { fileURLToPath } from 'node:url'
 import { dirname } from 'node:path'
 const __filename = fileURLToPath(import.meta.url)
@@ -111,6 +112,27 @@ app.post("/snippetaaa/*", async (req, res) => {
   app.post("/api/qrcodes", async (req, res) => {
     try {
       console.log("submiting in...");
+
+      const plans = Object.keys(billingConfig);
+    const session = res.locals.shopify.session;
+  
+    const hasPayment = await shopify.api.billing.check({
+      session,
+      plans: plans,
+      isTest: true,
+    });
+
+    if(! hasPayment){
+      const charge_url = 
+        await shopify.api.billing.request({
+          session,
+          plan: plans[0],
+          isTest: true,
+        });
+        return res.status(200).send({url: charge_url});
+    
+    }
+    
       const id = await SnippetDb.create({
         ...(await parseQrCodeBody(req, res)),
 
@@ -289,6 +311,28 @@ app.post("/snippetaaa/*", async (req, res) => {
   app.patch("/api/qrcodes/:id", async (req, res) => {
     console.log("/api/qrcodes/:id");
     const qrcode = await getQrCodeOr404(req, res);
+
+    const plans = Object.keys(billingConfig);
+    const session = res.locals.shopify.session;
+  
+    const hasPayment = await shopify.api.billing.check({
+      session,
+      plans: plans,
+      isTest: true,
+    });
+
+    if(! hasPayment){
+      const charge_url = 
+        await shopify.api.billing.request({
+          session,
+          plan: plans[0],
+          isTest: true,
+        });
+        return res.status(200).send({url: charge_url});
+    
+    }
+  
+  
 
     if (qrcode) {
       try {

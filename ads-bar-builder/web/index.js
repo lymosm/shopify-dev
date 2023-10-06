@@ -11,6 +11,7 @@ import GDPRWebhookHandlers from "./gdpr.js";
 // import ApplyMyApiEndpoints from "./middleware/myApi.js";
 import ApplySnippetApiEndpoints from "./middleware/snippetApi.js";
 // import { SnippetCore } from "./middleware/snippetCore.js";
+import { billingConfig } from "./billing.js";
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
@@ -28,7 +29,32 @@ app.get(shopify.config.auth.path, shopify.auth.begin());
 app.get(
   shopify.config.auth.callbackPath,
   shopify.auth.callback(),
+  
+  async (req, res, next) => {
+    const plans = Object.keys(billingConfig);
+    const session = res.locals.shopify.session;
+
+    const hasPayment = await shopify.api.billing.check({
+      session,
+      plans: plans,
+      isTest: true,
+    });
+
+    if (hasPayment) {
+      next();
+    } else {
+      res.redirect(
+        await shopify.api.billing.request({
+          session,
+          plan: plans[0],
+          isTest: true,
+        })
+      );
+    }
+  },
+  
   shopify.redirectToShopifyOrAppRoot()
+
 );
 app.post(
   shopify.config.webhooks.path,

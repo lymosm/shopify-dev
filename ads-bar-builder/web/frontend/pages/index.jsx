@@ -100,74 +100,12 @@ if(typeof list1 != "undefined"){
   myListHtml = (<SnippetList QRCodes={list1} loading={false} />);
 }
 
-const checkPlan = useCallback( async () => {
-	const plans = Object.keys(billingConfig);
-    const session = shopify.session;
-	console.log(session);
-    const hasPayment = await shopify.api.billing.check({
-      session,
-      plans: plans,
-      isTest: true,
-    });
-
-	console.log(hasPayment);
-
-}, []);
-
-const addSubscription = useCallback(async () => {
-	const client = new shopify.clients.Graphql({session});
-	const name = "Super Duper Recurring Plan";
-	const returnUrl = "http://super-duper.shopifyapps.com/";
-	const  lineItems = [
-		{
-			"plan": {
-			  "appRecurringPricingDetails": {
-				"price": {
-				  "amount": 10,
-				  "currencyCode": "USD"
-				},
-				"interval": "EVERY_30_DAYS"
-			  }
-			}
-		  }
-	];
-	const data = await client.query({
-	data: {
-		"query": `mutation AppSubscriptionCreate($name: String!, $lineItems: [AppSubscriptionLineItemInput!]!, $returnUrl: URL!) {
-		appSubscriptionCreate(name: $name, returnUrl: $returnUrl, lineItems: $lineItems) {
-			userErrors {
-			field
-			message
-			}
-			appSubscription {
-			id
-			}
-			confirmationUrl
-		}
-		}`,
-		"variables": {
-		"name": "Super Duper Recurring Plan",
-		"returnUrl": "http://super-duper.shopifyapps.com/",
-		"lineItems": [
-			{
-			"plan": {
-				"appRecurringPricingDetails": {
-				"price": {
-					"amount": 10.0,
-					"currencyCode": "USD"
-				},
-				"interval": "EVERY_30_DAYS"
-				}
-			}
-			}
-		]
-		},
-	},
-	});
-
-	console.log(data);
-
-}, []);
+const div1 = {
+  marginTop: "20px"
+};
+const goTo = function(){
+  navigate("/mypages/plan");
+};
   
   return (
     <Page fullWidth>
@@ -178,11 +116,10 @@ const addSubscription = useCallback(async () => {
           onAction: () => navigate("/mypages/add_snippet"),
         }}
       />
-      
+      <Button submit="false" onClick={ goTo }>My Subscription</Button>
+      <div style={div1}></div>
       <Layout>
         <Layout.Section>
-        <Button onClick={() => { addSubscription(); }}>Add Plan</Button>
-		<Button onClick={() => { checkPlan(); }}>Check Plan</Button>
         {myListHtml}
         {emptyStateMarkup}
         </Layout.Section>

@@ -27,4 +27,5 @@ extensions/*/build
 # Node library SQLite database
 web/database.sqlite
 web/*.sqlite
-# *.sqlite
+*.sqlite
+package-lock.json

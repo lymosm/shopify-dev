@@ -19,10 +19,13 @@
     "@shopify/shopify-app-express": "^2.2.4",
     "@shopify/shopify-app-session-storage-sqlite": "^1.2.9",
     "antd": "^5.5.0",
+    "aws-sdk": "^2.1472.0",
     "copy-to-clipboard": "^3.3.3",
     "dayjs": "^1.11.7",
     "express": "^4.18.2",
     "formidable": "^3.2.5",
+    "mock-aws-s3": "^4.0.2",
+    "nock": "^13.3.3",
     "path": "^0.12.7",
     "sqlite3": "^5.1.6"
   },

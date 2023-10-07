@@ -20,7 +20,6 @@
     "@shopify/shopify-app-session-storage-sqlite": "^1.2.9",
     "antd": "^5.5.0",
     "copy-to-clipboard": "^3.3.3",
-    "crypto": "^1.0.1",
     "dayjs": "^1.11.7",
     "express": "^4.18.2",
     "formidable": "^3.2.5",

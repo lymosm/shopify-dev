@@ -5,8 +5,6 @@ import { restResources } from "@shopify/shopify-api/rest/admin/2023-01";
 import { MyOwnDb } from "./myDb.js";
 import sqlite3 from "sqlite3";
 import { join } from "path";
-import { billingConfig } from "./billing.js";
-
 
 const database = new sqlite3.Database(join(process.cwd(), "mydb.sqlite"));
 
@@ -19,7 +17,7 @@ const shopify = shopifyApp({
   api: {
     apiVersion: LATEST_API_VERSION,
     restResources,
-    billing: billingConfig, // or replace with billingConfig above to enable example billing
+    billing: undefined, // or replace with billingConfig above to enable example billing
   },
   auth: {
     path: "/api/auth",

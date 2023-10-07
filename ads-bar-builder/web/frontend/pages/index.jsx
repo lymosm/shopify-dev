@@ -14,12 +14,9 @@ import {
 import { useNavigate, TitleBar, Loading } from "@shopify/app-bridge-react";
 
 import { trophyImage } from "../assets";
-import shopify from "../../snippetShopify.js";
 
 import { MyList, ProductsCard, SnippetList} from "../components";
 import { useAppQuery } from "../hooks";
-import { useCallback } from "react";
-import { billingConfig } from "../../billing.js";
 
 
 export default function HomePage() {

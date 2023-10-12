@@ -81,7 +81,7 @@ const goToPay = useCallback(async() => {
         primaryAction={null}
       />
         <EmptyState
-          heading="Simple Plan"
+          heading="base"
           action={btnSub}
           secondaryAction={{
             content: paid_status,

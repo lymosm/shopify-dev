@@ -1,7 +1,7 @@
 import { BillingInterval } from "@shopify/shopify-api";
 
 export const billingConfig = {
-  "Simple Plan": {
+  "base": {
     amount: 3.99,
     currencyCode: "USD",
     trialDays: 7,

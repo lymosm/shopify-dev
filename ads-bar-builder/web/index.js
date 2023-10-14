@@ -21,7 +21,7 @@ const STATIC_PATH =
     : `${process.cwd()}/frontend/`;
 
 const app = express();
-const billing_test = true;
+const billing_test = false;
 
 
 // Set up Shopify authentication and webhook handling

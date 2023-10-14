@@ -31,7 +31,7 @@ import {
 } from "../helpers/snippetDbHelp.js";
 
 
-const billing_test = true;
+const billing_test = false;
 
 
 const DISCOUNTS_QUERY = `

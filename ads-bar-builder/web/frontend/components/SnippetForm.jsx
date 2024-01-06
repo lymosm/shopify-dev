@@ -117,6 +117,11 @@ export function SnippetForm({ QRCode: InitialQRCode }) {
         if (response.ok) {
           makeClean();
           const QRCode = await response.json();
+          console.log(QRCode);
+          if(typeof QRCode.url != "undefined"){
+            window.parent.location.href = QRCode.url;
+            return ;
+          }
           /* if this is a new QR code, then save the QR code and navigate to the edit page; this behavior is the standard when saving resources in the Shopify admin */
           if (!QRCodeId) {
             // navigate(`/qrcodes/${QRCode.id}`);

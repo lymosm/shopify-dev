@@ -21,7 +21,7 @@ const STATIC_PATH =
     : `${process.cwd()}/frontend/`;
 
 const app = express();
-
+const billing_test = false;
 
 
 // Set up Shopify authentication and webhook handling
@@ -37,7 +37,7 @@ app.get(
     const hasPayment = await shopify.api.billing.check({
       session,
       plans: plans,
-      isTest: true,
+      isTest: billing_test,
     });
 
     if (hasPayment) {
@@ -47,7 +47,7 @@ app.get(
         await shopify.api.billing.request({
           session,
           plan: plans[0],
-          isTest: true,
+          isTest: billing_test,
         })
       );
     }

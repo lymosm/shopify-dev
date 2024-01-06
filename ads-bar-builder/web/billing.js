@@ -1,8 +1,7 @@
-// web/billing.js
 import { BillingInterval } from "@shopify/shopify-api";
 
 export const billingConfig = {
-  "plan": {
+  "base": {
     amount: 3.99,
     currencyCode: "USD",
     trialDays: 7,
